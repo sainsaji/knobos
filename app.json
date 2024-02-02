@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "app1.py",
+      "hash": "a1b2c3d4e5f6g7h8"
+    },
+    {
+      "name": "app2.py",
+      "hash": "i9j0k1l2m3n4o5"
+    },
+    {
+      "name": "app3.py",
+      "hash": "p6q7r8s9t0u1v2"
+    }
+  ]
+}
