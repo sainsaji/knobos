@@ -62,7 +62,7 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
         /*Set the coordinates*/
         data->point.x = touchX;
         data->point.y = touchY;
-
+                                                                  
         Serial.print( "Data x " );
         Serial.println( touchX );
 

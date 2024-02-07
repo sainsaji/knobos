@@ -40,6 +40,21 @@ void ui_event_Changelog(lv_event_t * e);
 extern lv_obj_t * ui_Changelog;
 extern lv_obj_t * ui_Label4;
 extern lv_obj_t * ui_Label5;
+// SCREEN: ui_HomeScreen
+void ui_HomeScreen_screen_init(void);
+void ui_event_HomeScreen(lv_event_t * e);
+extern lv_obj_t * ui_HomeScreen;
+extern lv_obj_t * ui_TimePanel;
+extern lv_obj_t * ui_Hour;
+extern lv_obj_t * ui_Mins;
+extern lv_obj_t * ui_DateInfo;
+extern lv_obj_t * ui_StatusPanel;
+extern lv_obj_t * ui_WifiPanel;
+extern lv_obj_t * ui_WifiImage;
+extern lv_obj_t * ui_ProfilePanel;
+extern lv_obj_t * ui_ProfileImage;
+extern lv_obj_t * ui_SettingsPanel;
+extern lv_obj_t * ui_SettingsImage;
 // SCREEN: ui_AppScreenDisplay
 void ui_AppScreenDisplay_screen_init(void);
 void ui_event_AppScreenDisplay(lv_event_t * e);
@@ -79,9 +94,26 @@ extern lv_obj_t * ui_LightColorScreen;
 extern lv_obj_t * ui_LightColorWheel;
 extern lv_obj_t * ui_SetColorButton;
 extern lv_obj_t * ui_SetColorLabel;
+// SCREEN: ui_FanControl
+void ui_FanControl_screen_init(void);
+void ui_event_FanControl(lv_event_t * e);
+extern lv_obj_t * ui_FanControl;
+extern lv_obj_t * ui_AppTitleComp2;
+extern lv_obj_t * ui_AppControls1;
+extern lv_obj_t * ui_SwitchHolder1;
+extern lv_obj_t * ui_switch1;
+extern lv_obj_t * ui_SwitchLabel1;
+extern lv_obj_t * ui_Slider2;
+extern lv_obj_t * ui_Label6;
+void ui_event_ChangeColorButton1(lv_event_t * e);
+extern lv_obj_t * ui_ChangeColorButton1;
+extern lv_obj_t * ui_Label7;
 extern lv_obj_t * ui____initial_actions0;
 
 LV_IMG_DECLARE(ui_img_1828568161);    // assets\knob (6).png
+LV_IMG_DECLARE(ui_img_1656806725);    // assets\no-wifi.png
+LV_IMG_DECLARE(ui_img_suitcase_png);    // assets\suitcase.png
+LV_IMG_DECLARE(ui_img_settings_png);    // assets\settings.png
 LV_IMG_DECLARE(ui_img_lightbulb_png);    // assets\lightbulb.png
 LV_IMG_DECLARE(ui_img_fan_png);    // assets\fan.png
 LV_IMG_DECLARE(ui_img_laptop_png);    // assets\laptop.png
