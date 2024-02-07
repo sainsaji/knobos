@@ -64,6 +64,7 @@ void ui_event_AppComponent2(lv_event_t * e);
 extern lv_obj_t * ui_AppComponent2;
 extern lv_obj_t * ui_AppImage1;
 extern lv_obj_t * ui_AppLabel1;
+void ui_event_AppComponent3(lv_event_t * e);
 extern lv_obj_t * ui_AppComponent3;
 extern lv_obj_t * ui_AppImage4;
 extern lv_obj_t * ui_AppLabel4;
@@ -108,6 +109,12 @@ extern lv_obj_t * ui_Label6;
 void ui_event_ChangeColorButton1(lv_event_t * e);
 extern lv_obj_t * ui_ChangeColorButton1;
 extern lv_obj_t * ui_Label7;
+// SCREEN: ui_TimerScreen
+void ui_TimerScreen_screen_init(void);
+void ui_event_TimerScreen(lv_event_t * e);
+extern lv_obj_t * ui_TimerScreen;
+extern lv_obj_t * ui_Arc2;
+extern lv_obj_t * ui_Dropdown1;
 extern lv_obj_t * ui____initial_actions0;
 
 LV_IMG_DECLARE(ui_img_1828568161);    // assets\knob (6).png

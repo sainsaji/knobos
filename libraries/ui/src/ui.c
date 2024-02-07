@@ -53,6 +53,7 @@ void ui_event_AppComponent2(lv_event_t * e);
 lv_obj_t * ui_AppComponent2;
 lv_obj_t * ui_AppImage1;
 lv_obj_t * ui_AppLabel1;
+void ui_event_AppComponent3(lv_event_t * e);
 lv_obj_t * ui_AppComponent3;
 lv_obj_t * ui_AppImage4;
 lv_obj_t * ui_AppLabel4;
@@ -103,6 +104,14 @@ lv_obj_t * ui_Label6;
 void ui_event_ChangeColorButton1(lv_event_t * e);
 lv_obj_t * ui_ChangeColorButton1;
 lv_obj_t * ui_Label7;
+
+
+// SCREEN: ui_TimerScreen
+void ui_TimerScreen_screen_init(void);
+void ui_event_TimerScreen(lv_event_t * e);
+lv_obj_t * ui_TimerScreen;
+lv_obj_t * ui_Arc2;
+lv_obj_t * ui_Dropdown1;
 lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -159,6 +168,14 @@ void ui_event_AppComponent2(lv_event_t * e)
         _ui_screen_change(&ui_LightControl, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_LightControl_screen_init);
     }
 }
+void ui_event_AppComponent3(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_LONG_PRESSED) {
+        _ui_screen_change(&ui_FanControl, LV_SCR_LOAD_ANIM_MOVE_TOP, 500, 0, &ui_FanControl_screen_init);
+    }
+}
 void ui_event_Panel2(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -207,7 +224,16 @@ void ui_event_ChangeColorButton1(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_RELEASED) {
-        _ui_screen_change(&ui_LightColorScreen, LV_SCR_LOAD_ANIM_MOVE_TOP, 500, 0, &ui_LightColorScreen_screen_init);
+        _ui_screen_change(&ui_TimerScreen, LV_SCR_LOAD_ANIM_MOVE_TOP, 500, 0, &ui_TimerScreen_screen_init);
+    }
+}
+void ui_event_TimerScreen(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
+        lv_indev_wait_release(lv_indev_get_act());
+        _ui_screen_change(&ui_FanControl, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_FanControl_screen_init);
     }
 }
 
@@ -228,6 +254,7 @@ void ui_init(void)
     ui_LightControl_screen_init();
     ui_LightColorScreen_screen_init();
     ui_FanControl_screen_init();
+    ui_TimerScreen_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_FlashScreen);
 }

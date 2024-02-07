@@ -9,6 +9,7 @@ screens/ui_AppScreenDisplay.c
 screens/ui_LightControl.c
 screens/ui_LightColorScreen.c
 screens/ui_FanControl.c
+screens/ui_TimerScreen.c
 ui.c
 components/ui_comp_hook.c
 ui_helpers.c
