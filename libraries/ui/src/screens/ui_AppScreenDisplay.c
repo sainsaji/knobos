@@ -170,7 +170,7 @@ void ui_AppScreenDisplay_screen_init(void)
     lv_obj_set_align(ui_Label2, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label2, "i");
 
-    lv_obj_add_event_cb(ui_AppComponent4, ui_event_AppComponent4, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_AppComponent2, ui_event_AppComponent2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_Panel2, ui_event_Panel2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_AppScreenDisplay, ui_event_AppScreenDisplay, LV_EVENT_ALL, NULL);
 

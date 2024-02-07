@@ -45,23 +45,23 @@ void ui_AppScreenDisplay_screen_init(void);
 void ui_event_AppScreenDisplay(lv_event_t * e);
 extern lv_obj_t * ui_AppScreenDisplay;
 extern lv_obj_t * ui_AppScreen;
+void ui_event_AppComponent2(lv_event_t * e);
 extern lv_obj_t * ui_AppComponent2;
 extern lv_obj_t * ui_AppImage1;
 extern lv_obj_t * ui_AppLabel1;
 extern lv_obj_t * ui_AppComponent3;
 extern lv_obj_t * ui_AppImage4;
 extern lv_obj_t * ui_AppLabel4;
-void ui_event_AppComponent4(lv_event_t * e);
 extern lv_obj_t * ui_AppComponent4;
 extern lv_obj_t * ui_AppImage3;
 extern lv_obj_t * ui_AppLabel3;
 void ui_event_Panel2(lv_event_t * e);
 extern lv_obj_t * ui_Panel2;
 extern lv_obj_t * ui_Label2;
-// SCREEN: ui_LaptopControl
-void ui_LaptopControl_screen_init(void);
-void ui_event_LaptopControl(lv_event_t * e);
-extern lv_obj_t * ui_LaptopControl;
+// SCREEN: ui_LightControl
+void ui_LightControl_screen_init(void);
+void ui_event_LightControl(lv_event_t * e);
+extern lv_obj_t * ui_LightControl;
 extern lv_obj_t * ui_AppTitleComp1;
 extern lv_obj_t * ui_AppControls;
 extern lv_obj_t * ui_SwitchHolder;
@@ -69,6 +69,16 @@ extern lv_obj_t * ui_switch;
 extern lv_obj_t * ui_SwitchLabel;
 extern lv_obj_t * ui_Slider1;
 extern lv_obj_t * ui_Label1;
+void ui_event_ChangeColorButton(lv_event_t * e);
+extern lv_obj_t * ui_ChangeColorButton;
+extern lv_obj_t * ui_Label3;
+// SCREEN: ui_LightColorScreen
+void ui_LightColorScreen_screen_init(void);
+void ui_event_LightColorScreen(lv_event_t * e);
+extern lv_obj_t * ui_LightColorScreen;
+extern lv_obj_t * ui_LightColorWheel;
+extern lv_obj_t * ui_SetColorButton;
+extern lv_obj_t * ui_SetColorLabel;
 extern lv_obj_t * ui____initial_actions0;
 
 LV_IMG_DECLARE(ui_img_1828568161);    // assets\knob (6).png

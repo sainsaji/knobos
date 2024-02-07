@@ -32,13 +32,13 @@ void ui_AppScreenDisplay_screen_init(void);
 void ui_event_AppScreenDisplay(lv_event_t * e);
 lv_obj_t * ui_AppScreenDisplay;
 lv_obj_t * ui_AppScreen;
+void ui_event_AppComponent2(lv_event_t * e);
 lv_obj_t * ui_AppComponent2;
 lv_obj_t * ui_AppImage1;
 lv_obj_t * ui_AppLabel1;
 lv_obj_t * ui_AppComponent3;
 lv_obj_t * ui_AppImage4;
 lv_obj_t * ui_AppLabel4;
-void ui_event_AppComponent4(lv_event_t * e);
 lv_obj_t * ui_AppComponent4;
 lv_obj_t * ui_AppImage3;
 lv_obj_t * ui_AppLabel3;
@@ -47,10 +47,10 @@ lv_obj_t * ui_Panel2;
 lv_obj_t * ui_Label2;
 
 
-// SCREEN: ui_LaptopControl
-void ui_LaptopControl_screen_init(void);
-void ui_event_LaptopControl(lv_event_t * e);
-lv_obj_t * ui_LaptopControl;
+// SCREEN: ui_LightControl
+void ui_LightControl_screen_init(void);
+void ui_event_LightControl(lv_event_t * e);
+lv_obj_t * ui_LightControl;
 lv_obj_t * ui_AppTitleComp1;
 lv_obj_t * ui_AppControls;
 lv_obj_t * ui_SwitchHolder;
@@ -58,6 +58,18 @@ lv_obj_t * ui_switch;
 lv_obj_t * ui_SwitchLabel;
 lv_obj_t * ui_Slider1;
 lv_obj_t * ui_Label1;
+void ui_event_ChangeColorButton(lv_event_t * e);
+lv_obj_t * ui_ChangeColorButton;
+lv_obj_t * ui_Label3;
+
+
+// SCREEN: ui_LightColorScreen
+void ui_LightColorScreen_screen_init(void);
+void ui_event_LightColorScreen(lv_event_t * e);
+lv_obj_t * ui_LightColorScreen;
+lv_obj_t * ui_LightColorWheel;
+lv_obj_t * ui_SetColorButton;
+lv_obj_t * ui_SetColorLabel;
 lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -97,12 +109,12 @@ void ui_event_AppScreenDisplay(lv_event_t * e)
         _ui_screen_change(&ui_Changelog, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_Changelog_screen_init);
     }
 }
-void ui_event_AppComponent4(lv_event_t * e)
+void ui_event_AppComponent2(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_LONG_PRESSED) {
-        _ui_screen_change(&ui_LaptopControl, LV_SCR_LOAD_ANIM_MOVE_TOP, 500, 0, &ui_LaptopControl_screen_init);
+        _ui_screen_change(&ui_LightControl, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_LightControl_screen_init);
     }
 }
 void ui_event_Panel2(lv_event_t * e)
@@ -113,13 +125,30 @@ void ui_event_Panel2(lv_event_t * e)
         _ui_screen_change(&ui_FlashScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_FlashScreen_screen_init);
     }
 }
-void ui_event_LaptopControl(lv_event_t * e)
+void ui_event_LightControl(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
         lv_indev_wait_release(lv_indev_get_act());
         _ui_screen_change(&ui_AppScreenDisplay, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_AppScreenDisplay_screen_init);
+    }
+}
+void ui_event_ChangeColorButton(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_RELEASED) {
+        _ui_screen_change(&ui_LightColorScreen, LV_SCR_LOAD_ANIM_MOVE_TOP, 500, 0, &ui_LightColorScreen_screen_init);
+    }
+}
+void ui_event_LightColorScreen(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
+        lv_indev_wait_release(lv_indev_get_act());
+        _ui_screen_change(&ui_LightControl, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_LightControl_screen_init);
     }
 }
 
@@ -136,7 +165,8 @@ void ui_init(void)
     ui_FlashScreen_screen_init();
     ui_Changelog_screen_init();
     ui_AppScreenDisplay_screen_init();
-    ui_LaptopControl_screen_init();
+    ui_LightControl_screen_init();
+    ui_LightColorScreen_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_FlashScreen);
 }

@@ -5,30 +5,33 @@
 
 #include "../ui.h"
 
-void ui_LaptopControl_screen_init(void)
+void ui_LightControl_screen_init(void)
 {
-    ui_LaptopControl = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_LaptopControl, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_flex_flow(ui_LaptopControl, LV_FLEX_FLOW_COLUMN);
-    lv_obj_set_flex_align(ui_LaptopControl, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    ui_LightControl = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_LightControl, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_flex_flow(ui_LightControl, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_flex_align(ui_LightControl, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 
-    lv_obj_set_style_pad_left(ui_LaptopControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(ui_LaptopControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(ui_LaptopControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(ui_LaptopControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_LightControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_LightControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_LightControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_LightControl, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
 
-    ui_AppTitleComp1 = ui_AppTitleComp_create(ui_LaptopControl);
+    ui_AppTitleComp1 = ui_AppTitleComp_create(ui_LightControl);
+    lv_obj_set_width(ui_AppTitleComp1, 159);
+    lv_obj_set_height(ui_AppTitleComp1, 31);
     lv_obj_set_x(ui_AppTitleComp1, 0);
     lv_obj_set_y(ui_AppTitleComp1, -82);
     lv_obj_set_flex_flow(ui_AppTitleComp1, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(ui_AppTitleComp1, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 
+    lv_img_set_src(ui_comp_get_child(ui_AppTitleComp1, UI_COMP_APPTITLECOMP_APPIMAGE2), &ui_img_lightbulb_png);
 
-    lv_label_set_text(ui_comp_get_child(ui_AppTitleComp1, UI_COMP_APPTITLECOMP_APPLABEL2), "Lap Control");
+    lv_label_set_text(ui_comp_get_child(ui_AppTitleComp1, UI_COMP_APPTITLECOMP_APPLABEL2), "Light Control");
 
-    ui_AppControls = lv_obj_create(ui_LaptopControl);
+    ui_AppControls = lv_obj_create(ui_LightControl);
     lv_obj_set_width(ui_AppControls, 189);
-    lv_obj_set_height(ui_AppControls, 113);
+    lv_obj_set_height(ui_AppControls, 118);
     lv_obj_set_x(ui_AppControls, -1);
     lv_obj_set_y(ui_AppControls, -36);
     lv_obj_set_align(ui_AppControls, LV_ALIGN_CENTER);
@@ -82,6 +85,20 @@ void ui_LaptopControl_screen_init(void)
     lv_obj_set_align(ui_Label1, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label1, "Brightness Level");
 
-    lv_obj_add_event_cb(ui_LaptopControl, ui_event_LaptopControl, LV_EVENT_ALL, NULL);
+    ui_ChangeColorButton = lv_btn_create(ui_AppControls);
+    lv_obj_set_width(ui_ChangeColorButton, 160);
+    lv_obj_set_height(ui_ChangeColorButton, 27);
+    lv_obj_set_align(ui_ChangeColorButton, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_ChangeColorButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ChangeColorButton, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_Label3 = lv_label_create(ui_ChangeColorButton);
+    lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Label3, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label3, "Change Color");
+
+    lv_obj_add_event_cb(ui_ChangeColorButton, ui_event_ChangeColorButton, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_LightControl, ui_event_LightControl, LV_EVENT_ALL, NULL);
 
 }
