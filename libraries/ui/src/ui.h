@@ -81,7 +81,7 @@ extern lv_obj_t * ui_LightControl;
 extern lv_obj_t * ui_AppTitleComp1;
 extern lv_obj_t * ui_AppControls;
 extern lv_obj_t * ui_SwitchHolder;
-extern lv_obj_t * ui_switch;
+extern lv_obj_t * ui_LightSwitch;
 extern lv_obj_t * ui_SwitchLabel;
 void ui_event_BrightnessSlider(lv_event_t * e);
 extern lv_obj_t * ui_BrightnessSlider;

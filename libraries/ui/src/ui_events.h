@@ -10,6 +10,7 @@
 extern "C" {
 #endif
 
+void checkLightStatus(lv_event_t * e);
 void brightnessLevelChange(lv_event_t * e);
 void swithOnFunction(lv_event_t * e);
 

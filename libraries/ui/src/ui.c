@@ -72,7 +72,7 @@ lv_obj_t * ui_LightControl;
 lv_obj_t * ui_AppTitleComp1;
 lv_obj_t * ui_AppControls;
 lv_obj_t * ui_SwitchHolder;
-lv_obj_t * ui_switch;
+lv_obj_t * ui_LightSwitch;
 lv_obj_t * ui_SwitchLabel;
 void ui_event_BrightnessSlider(lv_event_t * e);
 lv_obj_t * ui_BrightnessSlider;
@@ -193,6 +193,7 @@ void ui_event_LightControl(lv_event_t * e)
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
         lv_indev_wait_release(lv_indev_get_act());
         _ui_screen_change(&ui_AppScreenDisplay, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_AppScreenDisplay_screen_init);
+        checkLightStatus(e);
     }
 }
 void ui_event_BrightnessSlider(lv_event_t * e)

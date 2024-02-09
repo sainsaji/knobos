@@ -12228,7 +12228,7 @@
                       {
                         "nid": -1101492438,
                         "strtype": "OBJECT/Name",
-                        "strval": "switch",
+                        "strval": "LightSwitch",
                         "InheritedType": 10
                       },
                       {
@@ -13421,7 +13421,7 @@
                   {
                     "nid": 162443413,
                     "strtype": "OBJECT/Name",
-                    "strval": "Label1",
+                    "strval": "BrightnessSliderLabel",
                     "InheritedType": 10
                   },
                   {
@@ -14894,6 +14894,44 @@
                     "nid": -1494604163,
                     "strtype": "CHANGE SCREEN/Delay",
                     "InheritedType": 6
+                  }
+                ],
+                "InheritedType": 10
+              },
+              {
+                "nid": 1288365857,
+                "strtype": "_custom/action",
+                "strval": "CALL FUNCTION",
+                "childs": [
+                  {
+                    "nid": 26392865,
+                    "strtype": "CALL FUNCTION/Name",
+                    "strval": "CALL FUNCTION",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -568872544,
+                    "strtype": "CALL FUNCTION/Call",
+                    "strval": "<{Function_name}>( event_struct )",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -375884933,
+                    "strtype": "CALL FUNCTION/CallC",
+                    "strval": "<{Function_name}>( e );",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -2041984095,
+                    "strtype": "CALL FUNCTION/Function_name",
+                    "strval": "checkLightStatus",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": 1377928850,
+                    "strtype": "CALL FUNCTION/Dont_export_function",
+                    "strval": "False",
+                    "InheritedType": 2
                   }
                 ],
                 "InheritedType": 10
@@ -21092,7 +21130,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "C:\\Users\\sains\\OneDrive\\Documents\\Arduino\\knobOS\\./libraries/ui/src",
     "projectExportFolderPath": "C:\\Users\\sains\\OneDrive\\Documents\\Arduino\\knobOS",
-    "backup_cnt": 158,
+    "backup_cnt": 209,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.6",
     "callfuncsexport": "C_FILE",

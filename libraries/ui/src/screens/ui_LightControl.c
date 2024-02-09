@@ -53,12 +53,12 @@ void ui_LightControl_screen_init(void)
     lv_obj_set_style_border_color(ui_SwitchHolder, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_opa(ui_SwitchHolder, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_switch = lv_switch_create(ui_SwitchHolder);
-    lv_obj_set_width(ui_switch, 50);
-    lv_obj_set_height(ui_switch, 25);
-    lv_obj_set_x(ui_switch, -62);
-    lv_obj_set_y(ui_switch, -19);
-    lv_obj_set_align(ui_switch, LV_ALIGN_CENTER);
+    ui_LightSwitch = lv_switch_create(ui_SwitchHolder);
+    lv_obj_set_width(ui_LightSwitch, 50);
+    lv_obj_set_height(ui_LightSwitch, 25);
+    lv_obj_set_x(ui_LightSwitch, -62);
+    lv_obj_set_y(ui_LightSwitch, -19);
+    lv_obj_set_align(ui_LightSwitch, LV_ALIGN_CENTER);
 
 
     ui_SwitchLabel = lv_label_create(ui_SwitchHolder);
@@ -98,7 +98,7 @@ void ui_LightControl_screen_init(void)
     lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label3, "Change Color");
 
-    
+    lv_obj_add_event_cb(ui_BrightnessSlider, ui_event_BrightnessSlider, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ChangeColorButton, ui_event_ChangeColorButton, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_LightControl, ui_event_LightControl, LV_EVENT_ALL, NULL);
 

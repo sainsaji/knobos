@@ -80,6 +80,11 @@ static void lvglTask(void *pvParameters) {
   int value = lv_slider_get_value(target);
   Serial.println("Hello, World!");
   Serial.println(value);
+  lv_obj_t * switch_btn = ui_LightSwitch; // Assuming ui_LightSwitch is accessible here
+  int buttonState = lv_obj_get_state(switch_btn);
+  Serial.println(buttonState);
+  lv_obj_clear_state(switch_btn,lv_obj_get_state(switch_btn));
+  lv_obj_add_state(switch_btn, LV_STATE_CHECKED);
 
 
 
@@ -143,6 +148,7 @@ void setup()
 
     ui_init();
     lv_obj_add_event_cb(ui_BrightnessSlider, brightnessSliderUpdate, LV_EVENT_VALUE_CHANGED, NULL);
+    
 
 }
 

@@ -14,3 +14,8 @@ void brightnessLevelChange(lv_event_t * e)
 {
 	
 }
+
+void checkLightStatus(lv_event_t * e)
+{
+	// Your code here
+}
