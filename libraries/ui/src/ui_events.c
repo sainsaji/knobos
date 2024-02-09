@@ -19,3 +19,13 @@ void checkLightStatus(lv_event_t * e)
 {
 	// Your code here
 }
+
+void lightControlScreenLoaded(lv_event_t * e)
+{
+	// Your code here
+}
+
+void ConnectToWifi(lv_event_t * e)
+{
+	// Your code here
+}

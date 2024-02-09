@@ -10,6 +10,7 @@ SET(SOURCES components/ui_comp_appcomponent.c
     screens/ui_LightColorScreen.c
     screens/ui_FanControl.c
     screens/ui_TimerScreen.c
+    screens/ui_SettingsScreen.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c

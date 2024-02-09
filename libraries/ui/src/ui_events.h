@@ -10,9 +10,10 @@
 extern "C" {
 #endif
 
-void checkLightStatus(lv_event_t * e);
+void lightControlScreenLoaded(lv_event_t * e);
 void brightnessLevelChange(lv_event_t * e);
 void swithOnFunction(lv_event_t * e);
+void ConnectToWifi(lv_event_t * e);
 
 #ifdef __cplusplus
 } /*extern "C"*/

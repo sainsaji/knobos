@@ -10,3 +10,11 @@ def brightnessLevelChange(event_struct):
 def checkLightStatus(event_struct):
     return
 
+
+def lightControlScreenLoaded(event_struct):
+    return
+
+
+def ConnectToWifi(event_struct):
+    return
+

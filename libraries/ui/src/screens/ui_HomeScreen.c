@@ -127,6 +127,7 @@ void ui_HomeScreen_screen_init(void)
     lv_obj_clear_flag(ui_SettingsImage, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_SettingsImage, 100);
 
+    lv_obj_add_event_cb(ui_SettingsPanel, ui_event_SettingsPanel, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_HomeScreen, ui_event_HomeScreen, LV_EVENT_ALL, NULL);
 
 }

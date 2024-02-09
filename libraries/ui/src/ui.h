@@ -53,6 +53,7 @@ extern lv_obj_t * ui_WifiPanel;
 extern lv_obj_t * ui_WifiImage;
 extern lv_obj_t * ui_ProfilePanel;
 extern lv_obj_t * ui_ProfileImage;
+void ui_event_SettingsPanel(lv_event_t * e);
 extern lv_obj_t * ui_SettingsPanel;
 extern lv_obj_t * ui_SettingsImage;
 // SCREEN: ui_AppScreenDisplay
@@ -117,6 +118,16 @@ void ui_event_TimerScreen(lv_event_t * e);
 extern lv_obj_t * ui_TimerScreen;
 extern lv_obj_t * ui_Arc2;
 extern lv_obj_t * ui_Dropdown1;
+// SCREEN: ui_SettingsScreen
+void ui_SettingsScreen_screen_init(void);
+void ui_event_SettingsScreen(lv_event_t * e);
+extern lv_obj_t * ui_SettingsScreen;
+extern lv_obj_t * ui_AppTitleComp3;
+extern lv_obj_t * ui_AppControls2;
+void ui_event_ConnectToWifiBtn(lv_event_t * e);
+extern lv_obj_t * ui_ConnectToWifiBtn;
+extern lv_obj_t * ui_Label1;
+extern lv_obj_t * ui_ConnectionStatusLabel;
 extern lv_obj_t * ui____initial_actions0;
 
 LV_IMG_DECLARE(ui_img_1828568161);    // assets\knob (6).png

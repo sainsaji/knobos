@@ -40,6 +40,7 @@ lv_obj_t * ui_WifiPanel;
 lv_obj_t * ui_WifiImage;
 lv_obj_t * ui_ProfilePanel;
 lv_obj_t * ui_ProfileImage;
+void ui_event_SettingsPanel(lv_event_t * e);
 lv_obj_t * ui_SettingsPanel;
 lv_obj_t * ui_SettingsImage;
 
@@ -114,6 +115,18 @@ void ui_event_TimerScreen(lv_event_t * e);
 lv_obj_t * ui_TimerScreen;
 lv_obj_t * ui_Arc2;
 lv_obj_t * ui_Dropdown1;
+
+
+// SCREEN: ui_SettingsScreen
+void ui_SettingsScreen_screen_init(void);
+void ui_event_SettingsScreen(lv_event_t * e);
+lv_obj_t * ui_SettingsScreen;
+lv_obj_t * ui_AppTitleComp3;
+lv_obj_t * ui_AppControls2;
+void ui_event_ConnectToWifiBtn(lv_event_t * e);
+lv_obj_t * ui_ConnectToWifiBtn;
+lv_obj_t * ui_Label1;
+lv_obj_t * ui_ConnectionStatusLabel;
 lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -151,6 +164,14 @@ void ui_event_HomeScreen(lv_event_t * e)
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_LEFT) {
         lv_indev_wait_release(lv_indev_get_act());
         _ui_screen_change(&ui_AppScreenDisplay, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_AppScreenDisplay_screen_init);
+    }
+}
+void ui_event_SettingsPanel(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_SettingsScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_SettingsScreen_screen_init);
     }
 }
 void ui_event_AppScreenDisplay(lv_event_t * e)
@@ -193,7 +214,10 @@ void ui_event_LightControl(lv_event_t * e)
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
         lv_indev_wait_release(lv_indev_get_act());
         _ui_screen_change(&ui_AppScreenDisplay, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_AppScreenDisplay_screen_init);
-        checkLightStatus(e);
+    }
+    if(event_code == LV_EVENT_SCREEN_LOADED) {
+        lightControlScreenLoaded(e);
+        (e);
     }
 }
 void ui_event_BrightnessSlider(lv_event_t * e)
@@ -256,6 +280,27 @@ void ui_event_TimerScreen(lv_event_t * e)
         _ui_screen_change(&ui_FanControl, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_FanControl_screen_init);
     }
 }
+void ui_event_SettingsScreen(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
+        lv_indev_wait_release(lv_indev_get_act());
+        _ui_screen_change(&ui_HomeScreen, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_HomeScreen_screen_init);
+    }
+    if(event_code == LV_EVENT_SCREEN_LOADED) {
+        lightControlScreenLoaded(e);
+        (e);
+    }
+}
+void ui_event_ConnectToWifiBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        ConnectToWifi(e);
+    }
+}
 
 ///////////////////// SCREENS ////////////////////
 
@@ -275,6 +320,7 @@ void ui_init(void)
     ui_LightColorScreen_screen_init();
     ui_FanControl_screen_init();
     ui_TimerScreen_screen_init();
+    ui_SettingsScreen_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_FlashScreen);
 }

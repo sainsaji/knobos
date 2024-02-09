@@ -3,6 +3,11 @@
 #include <ui.h>
 #include <CST816S.h>
 #include <Ticker.h>
+#include <WiFi.h>
+
+const char* ssid = "Wi-Fi";
+const char* password = "Mywifi#123";
+
 
 
 CST816S touch(6, 7, 14, 5);
@@ -76,9 +81,9 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 
 static void lvglTask(void *pvParameters) {
   // Ensure LVGL is initialized
-  lv_obj_t *target = (lv_obj_t *)pvParameters;
-  int value = lv_slider_get_value(target);
-  Serial.println("Hello, World!");
+  lv_obj_t *slider = (lv_obj_t *)pvParameters;
+  int value = lv_slider_get_value(slider);
+  Serial.println("Slider Value Changed!");
   Serial.println(value);
   lv_obj_t * switch_btn = ui_LightSwitch; // Assuming ui_LightSwitch is accessible here
   int buttonState = lv_obj_get_state(switch_btn);
@@ -102,6 +107,53 @@ void brightnessSliderUpdate(lv_event_t * e)
               "LVGL Task", // Task name
               4096, // Stack size
               (void *)target, // Task parameters
+              1, // Priority
+              NULL); // Task handle (optional)
+}
+
+void lightControlScreenEvents(lv_event_t * e)
+{
+  
+}
+
+static void connectWiFi(void *pvParameters) {
+  lv_obj_t *statusLabel = (lv_obj_t *)pvParameters;
+  WiFi.mode(WIFI_STA); //Optional
+  WiFi.begin(ssid, password);
+  Serial.println("\nConnecting");
+
+  unsigned long startTime = millis(); // Record the start time
+
+  while (WiFi.status() != WL_CONNECTED && millis() - startTime < 10000) { // Check connection status and time elapsed
+    Serial.print(".");
+    delay(100);
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nConnected to the WiFi network");
+    Serial.print("Local ESP32 IP: ");
+    Serial.println(WiFi.localIP());
+    lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString());
+  } else {
+    Serial.println("\nConnection timed out");
+    lv_label_set_text_fmt(statusLabel, "%s", "Failed!");
+    // Handle timeout here, for example, retry connection or take appropriate action
+  }
+
+  while (1) {
+    lv_task_handler();
+    delay(5); // Adjust delay as needed
+  }
+}
+
+
+void connectToWifi(lv_event_t * e)
+{
+  lv_obj_t *wifiStatusLabel = ui_ConnectionStatusLabel;
+  xTaskCreate(connectWiFi, // Task function
+              "LVGL Connect to WiFi Task", // Task name
+              4096, // Stack size
+              (void *)wifiStatusLabel, // Task parameters
               1, // Priority
               NULL); // Task handle (optional)
 }
@@ -147,7 +199,9 @@ void setup()
 
 
     ui_init();
-    lv_obj_add_event_cb(ui_BrightnessSlider, brightnessSliderUpdate, LV_EVENT_VALUE_CHANGED, NULL);
+    //lv_obj_add_event_cb(ui_BrightnessSlider, brightnessSliderUpdate, LV_EVENT_VALUE_CHANGED, NULL);
+    //lv_obj_add_event_cb(ui_LightControl, lightControlScreenEvents, LV_EVENT_SCREEN_LOADED, NULL);
+    lv_obj_add_event_cb(ui_ConnectToWifiBtn, connectToWifi, LV_EVENT_PRESSED, NULL);
     
 
 }
