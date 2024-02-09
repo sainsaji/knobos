@@ -110,42 +110,42 @@ void ui_AppScreenDisplay_screen_init(void)
     lv_obj_set_align(ui_AppLabel4, LV_ALIGN_CENTER);
     lv_label_set_text(ui_AppLabel4, "Fan Control");
 
-    ui_AppComponent4 = lv_obj_create(ui_AppScreen);
-    lv_obj_set_width(ui_AppComponent4, 100);
-    lv_obj_set_height(ui_AppComponent4, 96);
-    lv_obj_set_x(ui_AppComponent4, -336);
-    lv_obj_set_y(ui_AppComponent4, -159);
-    lv_obj_set_align(ui_AppComponent4, LV_ALIGN_CENTER);
-    lv_obj_set_flex_flow(ui_AppComponent4, LV_FLEX_FLOW_COLUMN);
-    lv_obj_set_flex_align(ui_AppComponent4, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_clear_flag(ui_AppComponent4, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_LaptopComponent = lv_obj_create(ui_AppScreen);
+    lv_obj_set_width(ui_LaptopComponent, 100);
+    lv_obj_set_height(ui_LaptopComponent, 96);
+    lv_obj_set_x(ui_LaptopComponent, -336);
+    lv_obj_set_y(ui_LaptopComponent, -159);
+    lv_obj_set_align(ui_LaptopComponent, LV_ALIGN_CENTER);
+    lv_obj_set_flex_flow(ui_LaptopComponent, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_flex_align(ui_LaptopComponent, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_LaptopComponent, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    lv_obj_set_style_pad_left(ui_AppComponent4, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(ui_AppComponent4, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(ui_AppComponent4, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(ui_AppComponent4, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_row(ui_AppComponent4, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_column(ui_AppComponent4, 10, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_LaptopComponent, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_LaptopComponent, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_LaptopComponent, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_LaptopComponent, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_row(ui_LaptopComponent, 0, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_column(ui_LaptopComponent, 10, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
 
-    ui_AppImage3 = lv_img_create(ui_AppComponent4);
-    lv_img_set_src(ui_AppImage3, &ui_img_laptop_png);
-    lv_obj_set_width(ui_AppImage3, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_AppImage3, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_AppImage3, -7);
-    lv_obj_set_y(ui_AppImage3, -4);
-    lv_obj_set_align(ui_AppImage3, LV_ALIGN_CENTER);
-    lv_obj_set_flex_flow(ui_AppImage3, LV_FLEX_FLOW_ROW);
-    lv_obj_set_flex_align(ui_AppImage3, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_END, LV_FLEX_ALIGN_START);
-    lv_obj_add_flag(ui_AppImage3, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_AppImage3, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_LaptopImage = lv_img_create(ui_LaptopComponent);
+    lv_img_set_src(ui_LaptopImage, &ui_img_laptop_png);
+    lv_obj_set_width(ui_LaptopImage, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LaptopImage, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LaptopImage, -7);
+    lv_obj_set_y(ui_LaptopImage, -4);
+    lv_obj_set_align(ui_LaptopImage, LV_ALIGN_CENTER);
+    lv_obj_set_flex_flow(ui_LaptopImage, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(ui_LaptopImage, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_END, LV_FLEX_ALIGN_START);
+    lv_obj_add_flag(ui_LaptopImage, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_LaptopImage, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_AppLabel3 = lv_label_create(ui_AppComponent4);
-    lv_obj_set_width(ui_AppLabel3, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_AppLabel3, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_AppLabel3, -3);
-    lv_obj_set_y(ui_AppLabel3, 26);
-    lv_obj_set_align(ui_AppLabel3, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_AppLabel3, "Lap Control");
+    ui_LaptopLabel = lv_label_create(ui_LaptopComponent);
+    lv_obj_set_width(ui_LaptopLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LaptopLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LaptopLabel, -3);
+    lv_obj_set_y(ui_LaptopLabel, 26);
+    lv_obj_set_align(ui_LaptopLabel, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LaptopLabel, "Lap Control");
 
     ui_Panel2 = lv_obj_create(ui_AppScreenDisplay);
     lv_obj_set_width(ui_Panel2, 33);
@@ -172,6 +172,7 @@ void ui_AppScreenDisplay_screen_init(void)
 
     lv_obj_add_event_cb(ui_AppComponent2, ui_event_AppComponent2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_AppComponent3, ui_event_AppComponent3, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_LaptopComponent, ui_event_LaptopComponent, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_Panel2, ui_event_Panel2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_AppScreenDisplay, ui_event_AppScreenDisplay, LV_EVENT_ALL, NULL);
 

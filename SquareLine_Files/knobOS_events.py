@@ -18,3 +18,7 @@ def lightControlScreenLoaded(event_struct):
 def ConnectToWifi(event_struct):
     return
 
+
+def lockLaptop(event_struct):
+    return
+

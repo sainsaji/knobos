@@ -29,3 +29,8 @@ void ConnectToWifi(lv_event_t * e)
 {
 	// Your code here
 }
+
+void lockLaptop(lv_event_t * e)
+{
+	// Your code here
+}

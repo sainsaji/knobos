@@ -58,9 +58,10 @@ void ui_event_AppComponent3(lv_event_t * e);
 lv_obj_t * ui_AppComponent3;
 lv_obj_t * ui_AppImage4;
 lv_obj_t * ui_AppLabel4;
-lv_obj_t * ui_AppComponent4;
-lv_obj_t * ui_AppImage3;
-lv_obj_t * ui_AppLabel3;
+void ui_event_LaptopComponent(lv_event_t * e);
+lv_obj_t * ui_LaptopComponent;
+lv_obj_t * ui_LaptopImage;
+lv_obj_t * ui_LaptopLabel;
 void ui_event_Panel2(lv_event_t * e);
 lv_obj_t * ui_Panel2;
 lv_obj_t * ui_Label2;
@@ -127,6 +128,18 @@ void ui_event_ConnectToWifiBtn(lv_event_t * e);
 lv_obj_t * ui_ConnectToWifiBtn;
 lv_obj_t * ui_Label1;
 lv_obj_t * ui_ConnectionStatusLabel;
+
+
+// SCREEN: ui_LaptopControl
+void ui_LaptopControl_screen_init(void);
+void ui_event_LaptopControl(lv_event_t * e);
+lv_obj_t * ui_LaptopControl;
+lv_obj_t * ui_AppTitleComp4;
+lv_obj_t * ui_AppControls3;
+lv_obj_t * ui_LaptopLockPanel;
+void ui_event_LockLaptopBtn(lv_event_t * e);
+lv_obj_t * ui_LockLaptopBtn;
+lv_obj_t * ui_LockLabel;
 lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -182,6 +195,10 @@ void ui_event_AppScreenDisplay(lv_event_t * e)
         lv_indev_wait_release(lv_indev_get_act());
         _ui_screen_change(&ui_Changelog, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_Changelog_screen_init);
     }
+    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
+        lv_indev_wait_release(lv_indev_get_act());
+        _ui_screen_change(&ui_SettingsScreen, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_SettingsScreen_screen_init);
+    }
 }
 void ui_event_AppComponent2(lv_event_t * e)
 {
@@ -197,6 +214,14 @@ void ui_event_AppComponent3(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_LONG_PRESSED) {
         _ui_screen_change(&ui_FanControl, LV_SCR_LOAD_ANIM_MOVE_TOP, 500, 0, &ui_FanControl_screen_init);
+    }
+}
+void ui_event_LaptopComponent(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_LONG_PRESSED) {
+        _ui_screen_change(&ui_LaptopControl, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_LaptopControl_screen_init);
     }
 }
 void ui_event_Panel2(lv_event_t * e)
@@ -301,6 +326,23 @@ void ui_event_ConnectToWifiBtn(lv_event_t * e)
         ConnectToWifi(e);
     }
 }
+void ui_event_LaptopControl(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
+        lv_indev_wait_release(lv_indev_get_act());
+        _ui_screen_change(&ui_AppScreenDisplay, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_AppScreenDisplay_screen_init);
+    }
+}
+void ui_event_LockLaptopBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        lockLaptop(e);
+    }
+}
 
 ///////////////////// SCREENS ////////////////////
 
@@ -321,6 +363,7 @@ void ui_init(void)
     ui_FanControl_screen_init();
     ui_TimerScreen_screen_init();
     ui_SettingsScreen_screen_init();
+    ui_LaptopControl_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_FlashScreen);
 }

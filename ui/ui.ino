@@ -5,25 +5,32 @@
 #include <Ticker.h>
 #include <WiFi.h>
 
+//WiFi Credentials
 const char* ssid = "Wi-Fi";
 const char* password = "Mywifi#123";
 
+//Socket Credentials
+const char* serverAddress = "192.168.1.3"; // IP address of the server you want to send data to
+const int serverPort = 8080; // Port of the server
 
+//Connection Variables
+bool isConnected = false;
 
+//Touch Initialization
 CST816S touch(6, 7, 14, 5);
 
 
-
-/*Don't forget to set Sketchbook location in File/Preferencesto the path of your UI project (the parent foder of this INO file)*/
-
-/*Change to your screen resolution*/
+/* Screen resolution*/
 static const uint16_t screenWidth  = 240;
 static const uint16_t screenHeight = 240;
 
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t buf[ screenWidth * screenHeight / 10 ];
 
+//TFT Initialization
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight); /* TFT instance */
+
+
 
 #if LV_USE_LOG != 0
 /* Serial debugging */
@@ -91,8 +98,6 @@ static void lvglTask(void *pvParameters) {
   lv_obj_clear_state(switch_btn,lv_obj_get_state(switch_btn));
   lv_obj_add_state(switch_btn, LV_STATE_CHECKED);
 
-
-
   // Keep LVGL running
   while(1) {
     lv_task_handler();
@@ -116,29 +121,60 @@ void lightControlScreenEvents(lv_event_t * e)
   
 }
 
+void socketSend(String dataToSocket)
+{
+  WiFiClient client;
+  if (!client.connect(serverAddress, serverPort)) {
+    Serial.println("Connection to server failed");
+    delay(1000);
+    return;
+  }
+  
+  // Send data to the server
+  String dataToSend = dataToSocket;
+  client.print(dataToSend);
+
+  // Close the connection
+  //client.stop();
+}
+
 static void connectWiFi(void *pvParameters) {
   lv_obj_t *statusLabel = (lv_obj_t *)pvParameters;
-  WiFi.mode(WIFI_STA); //Optional
-  WiFi.begin(ssid, password);
-  Serial.println("\nConnecting");
+  if(!isConnected)
+  {
+    WiFi.mode(WIFI_STA); //Optional
+    WiFi.begin(ssid, password);
+    Serial.println("\nConnecting");
+    lv_label_set_text_fmt(statusLabel, "%s", "Connecting!");
 
-  unsigned long startTime = millis(); // Record the start time
+    unsigned long startTime = millis(); // Record the start time
 
-  while (WiFi.status() != WL_CONNECTED && millis() - startTime < 10000) { // Check connection status and time elapsed
-    Serial.print(".");
-    delay(100);
+    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 10000) { // Check connection status and time elapsed
+      Serial.print(".");
+      delay(100);
+    }
+
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.println("\nConnected to the WiFi network");
+      Serial.print("Local ESP32 IP: ");
+      Serial.println(WiFi.localIP());
+      lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString());
+      socketSend("Hello Server");
+      isConnected = true;
+    } else {
+      Serial.println("\nConnection timed out");
+      lv_label_set_text_fmt(statusLabel, "%s", "Failed!");
+      // Handle timeout here, for example, retry connection or take appropriate action
+    }
   }
-
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("\nConnected to the WiFi network");
-    Serial.print("Local ESP32 IP: ");
-    Serial.println(WiFi.localIP());
-    lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString());
-  } else {
-    Serial.println("\nConnection timed out");
-    lv_label_set_text_fmt(statusLabel, "%s", "Failed!");
-    // Handle timeout here, for example, retry connection or take appropriate action
+  if(isConnected)
+  {
+    lv_obj_t *connectButton = ui_ConnectToWifiBtn;
+    Serial.println("\nDisabling Button");
+    lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
+    lv_obj_add_state(connectButton, LV_STATE_DISABLED);
   }
+  vTaskDelete(NULL);
 
   while (1) {
     lv_task_handler();
@@ -146,14 +182,35 @@ static void connectWiFi(void *pvParameters) {
   }
 }
 
+static void lockLaptop(void *pvParameters)
+{
+  Serial.println("\n Reached LapLock");
+  socketSend("Lock");
+  while (1) {
+    lv_task_handler();
+    delay(5); // Adjust delay as needed
+  }
 
-void connectToWifi(lv_event_t * e)
+}
+
+
+void connectToWifiTask(lv_event_t * e)
 {
   lv_obj_t *wifiStatusLabel = ui_ConnectionStatusLabel;
   xTaskCreate(connectWiFi, // Task function
               "LVGL Connect to WiFi Task", // Task name
               4096, // Stack size
               (void *)wifiStatusLabel, // Task parameters
+              1, // Priority
+              NULL); // Task handle (optional)
+}
+
+void lockLaptopTask(lv_event_t * e)
+{
+  xTaskCreate(lockLaptop, // Task function
+              "LVGL Lock Laptop Task", // Task name
+              4096, // Stack size
+              NULL, // Task parameters
               1, // Priority
               NULL); // Task handle (optional)
 }
@@ -201,7 +258,8 @@ void setup()
     ui_init();
     //lv_obj_add_event_cb(ui_BrightnessSlider, brightnessSliderUpdate, LV_EVENT_VALUE_CHANGED, NULL);
     //lv_obj_add_event_cb(ui_LightControl, lightControlScreenEvents, LV_EVENT_SCREEN_LOADED, NULL);
-    lv_obj_add_event_cb(ui_ConnectToWifiBtn, connectToWifi, LV_EVENT_PRESSED, NULL);
+    lv_obj_add_event_cb(ui_ConnectToWifiBtn, connectToWifiTask, LV_EVENT_PRESSED, NULL);
+    lv_obj_add_event_cb(ui_LockLaptopBtn, lockLaptopTask, LV_EVENT_PRESSED, NULL);
     
 
 }
