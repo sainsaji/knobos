@@ -2,8 +2,11 @@
 #include <TFT_eSPI.h>
 #include <ui.h>
 #include <CST816S.h>
+#include <Ticker.h>
+
 
 CST816S touch(6, 7, 14, 5);
+
 
 
 /*Don't forget to set Sketchbook location in File/Preferencesto the path of your UI project (the parent foder of this INO file)*/
@@ -63,13 +66,41 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
         data->point.x = touchX;
         data->point.y = touchY;
                                                                   
-        Serial.print( "Data x " );
-        Serial.println( touchX );
+        // Serial.print( "Data x " );
+        // Serial.println( touchX );
 
-        Serial.print( "Data y " );
-        Serial.println( touchY );
+        // Serial.print( "Data y " );
+        // Serial.println( touchY );
     }
 }
+
+static void lvglTask(void *pvParameters) {
+  // Ensure LVGL is initialized
+  lv_obj_t *target = (lv_obj_t *)pvParameters;
+  int value = lv_slider_get_value(target);
+  Serial.println("Hello, World!");
+  Serial.println(value);
+
+
+
+  // Keep LVGL running
+  while(1) {
+    lv_task_handler();
+    delay(5); // Adjust delay as needed
+  }
+}
+
+void brightnessSliderUpdate(lv_event_t * e)
+{
+  lv_obj_t *target = lv_event_get_target(e);
+    xTaskCreate(lvglTask, // Task function
+              "LVGL Task", // Task name
+              4096, // Stack size
+              (void *)target, // Task parameters
+              1, // Priority
+              NULL); // Task handle (optional)
+}
+
 
 void setup()
 {
@@ -111,7 +142,8 @@ void setup()
 
 
     ui_init();
-    Serial.println( "Setup done" );
+    lv_obj_add_event_cb(ui_BrightnessSlider, brightnessSliderUpdate, LV_EVENT_VALUE_CHANGED, NULL);
+
 }
 
 void loop()

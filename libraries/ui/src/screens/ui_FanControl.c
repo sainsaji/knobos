@@ -98,6 +98,7 @@ void ui_FanControl_screen_init(void)
     lv_obj_set_align(ui_Label7, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label7, "Set Timer");
 
+    lv_obj_add_event_cb(ui_SwitchHolder1, ui_event_SwitchHolder1, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ChangeColorButton1, ui_event_ChangeColorButton1, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_FanControl, ui_event_FanControl, LV_EVENT_ALL, NULL);
 

@@ -69,21 +69,21 @@ void ui_LightControl_screen_init(void)
     lv_obj_set_align(ui_SwitchLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_SwitchLabel, "Switch On");
 
-    ui_Slider1 = lv_slider_create(ui_AppControls);
-    lv_obj_set_width(ui_Slider1, 150);
-    lv_obj_set_height(ui_Slider1, 10);
-    lv_obj_set_x(ui_Slider1, 1);
-    lv_obj_set_y(ui_Slider1, 7);
-    lv_obj_set_align(ui_Slider1, LV_ALIGN_CENTER);
+    ui_BrightnessSlider = lv_slider_create(ui_AppControls);
+    lv_obj_set_width(ui_BrightnessSlider, 150);
+    lv_obj_set_height(ui_BrightnessSlider, 10);
+    lv_obj_set_x(ui_BrightnessSlider, 1);
+    lv_obj_set_y(ui_BrightnessSlider, 7);
+    lv_obj_set_align(ui_BrightnessSlider, LV_ALIGN_CENTER);
 
 
-    ui_Label1 = lv_label_create(ui_AppControls);
-    lv_obj_set_width(ui_Label1, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Label1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label1, 4);
-    lv_obj_set_y(ui_Label1, 34);
-    lv_obj_set_align(ui_Label1, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label1, "Brightness Level");
+    ui_BrightnessSliderLabel = lv_label_create(ui_AppControls);
+    lv_obj_set_width(ui_BrightnessSliderLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_BrightnessSliderLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_BrightnessSliderLabel, 4);
+    lv_obj_set_y(ui_BrightnessSliderLabel, 34);
+    lv_obj_set_align(ui_BrightnessSliderLabel, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_BrightnessSliderLabel, "Brightness Level");
 
     ui_ChangeColorButton = lv_btn_create(ui_AppControls);
     lv_obj_set_width(ui_ChangeColorButton, 160);
@@ -98,6 +98,7 @@ void ui_LightControl_screen_init(void)
     lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label3, "Change Color");
 
+    
     lv_obj_add_event_cb(ui_ChangeColorButton, ui_event_ChangeColorButton, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_LightControl, ui_event_LightControl, LV_EVENT_ALL, NULL);
 
