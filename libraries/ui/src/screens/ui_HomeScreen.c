@@ -75,7 +75,7 @@ void ui_HomeScreen_screen_init(void)
     lv_obj_clear_flag(ui_WifiPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
     ui_WifiImage = lv_img_create(ui_WifiPanel);
-    lv_img_set_src(ui_WifiImage, &ui_img_1656806725);
+    lv_img_set_src(ui_WifiImage, &ui_img_nowifi_png);
     lv_obj_set_width(ui_WifiImage, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_WifiImage, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_WifiImage, 60);

@@ -127,6 +127,7 @@ lv_obj_t * ui_AppControls2;
 void ui_event_ConnectToWifiBtn(lv_event_t * e);
 lv_obj_t * ui_ConnectToWifiBtn;
 lv_obj_t * ui_Label1;
+lv_obj_t * ui_Image1;
 lv_obj_t * ui_ConnectionStatusLabel;
 
 

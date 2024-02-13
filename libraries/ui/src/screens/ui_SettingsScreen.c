@@ -43,6 +43,8 @@ void ui_SettingsScreen_screen_init(void)
     lv_obj_set_width(ui_ConnectToWifiBtn, 160);
     lv_obj_set_height(ui_ConnectToWifiBtn, 27);
     lv_obj_set_align(ui_ConnectToWifiBtn, LV_ALIGN_CENTER);
+    lv_obj_set_flex_flow(ui_ConnectToWifiBtn, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(ui_ConnectToWifiBtn, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_add_flag(ui_ConnectToWifiBtn, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ConnectToWifiBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
@@ -51,6 +53,15 @@ void ui_SettingsScreen_screen_init(void)
     lv_obj_set_height(ui_Label1, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_Label1, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label1, "Connect WiFi");
+
+    ui_Image1 = lv_img_create(ui_ConnectToWifiBtn);
+    lv_img_set_src(ui_Image1, &ui_img_wifi_connected_png);
+    lv_obj_set_width(ui_Image1, LV_SIZE_CONTENT);   /// 64
+    lv_obj_set_height(ui_Image1, LV_SIZE_CONTENT);    /// 64
+    lv_obj_set_align(ui_Image1, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_img_set_zoom(ui_Image1, 100);
 
     ui_ConnectionStatusLabel = lv_label_create(ui_SettingsScreen);
     lv_obj_set_width(ui_ConnectionStatusLabel, LV_SIZE_CONTENT);   /// 1

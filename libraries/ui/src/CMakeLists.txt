@@ -17,11 +17,12 @@ SET(SOURCES components/ui_comp_appcomponent.c
     ui_helpers.c
     ui_events.c
     images/ui_img_1828568161.c
-    images/ui_img_1656806725.c
+    images/ui_img_nowifi_png.c
     images/ui_img_suitcase_png.c
     images/ui_img_settings_png.c
     images/ui_img_lightbulb_png.c
     images/ui_img_fan_png.c
-    images/ui_img_laptop_png.c)
+    images/ui_img_laptop_png.c
+    images/ui_img_wifi_connected_png.c)
 
 add_library(ui ${SOURCES})

@@ -159,7 +159,7 @@ static void connectWiFi(void *pvParameters) {
       Serial.print("Local ESP32 IP: ");
       Serial.println(WiFi.localIP());
       lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString());
-      socketSend("Hello Server");
+      
       isConnected = true;
     } else {
       Serial.println("\nConnection timed out");
@@ -173,6 +173,7 @@ static void connectWiFi(void *pvParameters) {
     Serial.println("\nDisabling Button");
     lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
     lv_obj_add_state(connectButton, LV_STATE_DISABLED);
+    socketSend("Hello Server");
   }
   vTaskDelete(NULL);
 
@@ -191,6 +192,11 @@ static void lockLaptop(void *pvParameters)
     delay(5); // Adjust delay as needed
   }
 
+}
+
+static void initSettings(void *pvParameters)
+{
+  Serial.println("\n Reached Settings Init");
 }
 
 
@@ -215,6 +221,39 @@ void lockLaptopTask(lv_event_t * e)
               NULL); // Task handle (optional)
 }
 
+void settingsScreenLoaded(lv_event_t * e)
+{
+  Serial.println("\n Settings Screen Loaded");
+  if(isConnected)
+  {
+    lv_obj_t *connectButton = ui_ConnectToWifiBtn;
+    Serial.println("\nDisabling Button");
+    lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
+    lv_obj_add_state(connectButton, LV_STATE_DISABLED);
+  }
+}
+
+void homeScreenLoaded(lv_event_t * e)
+{
+  Serial.println("\n Home Screen Loaded");
+  lv_obj_t *wifiImage = ui_WifiImage;
+  if(isConnected)
+  {
+    
+    Serial.println("Connected TO WiFi");
+    // lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
+    // lv_obj_add_state(connectButton, LV_STATE_DISABLED);
+    
+    lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
+    lv_img_set_zoom(wifiImage, 100);
+  }
+  else
+  {
+    lv_img_set_src(wifiImage, &ui_img_nowifi_png);
+    lv_img_set_zoom(wifiImage, 100);
+    Serial.println("Not Connected to WiFi");
+  }
+}
 
 void setup()
 {
@@ -260,6 +299,8 @@ void setup()
     //lv_obj_add_event_cb(ui_LightControl, lightControlScreenEvents, LV_EVENT_SCREEN_LOADED, NULL);
     lv_obj_add_event_cb(ui_ConnectToWifiBtn, connectToWifiTask, LV_EVENT_PRESSED, NULL);
     lv_obj_add_event_cb(ui_LockLaptopBtn, lockLaptopTask, LV_EVENT_PRESSED, NULL);
+    lv_obj_add_event_cb(ui_SettingsScreen, settingsScreenLoaded, LV_EVENT_SCREEN_LOADED, NULL);
+    lv_obj_add_event_cb(ui_HomeScreen, homeScreenLoaded, LV_EVENT_SCREEN_LOADED, NULL);
     
 
 }

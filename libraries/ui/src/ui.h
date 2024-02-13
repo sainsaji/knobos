@@ -128,6 +128,7 @@ extern lv_obj_t * ui_AppControls2;
 void ui_event_ConnectToWifiBtn(lv_event_t * e);
 extern lv_obj_t * ui_ConnectToWifiBtn;
 extern lv_obj_t * ui_Label1;
+extern lv_obj_t * ui_Image1;
 extern lv_obj_t * ui_ConnectionStatusLabel;
 // SCREEN: ui_LaptopControl
 void ui_LaptopControl_screen_init(void);
@@ -142,12 +143,13 @@ extern lv_obj_t * ui_LockLabel;
 extern lv_obj_t * ui____initial_actions0;
 
 LV_IMG_DECLARE(ui_img_1828568161);    // assets\knob (6).png
-LV_IMG_DECLARE(ui_img_1656806725);    // assets\no-wifi.png
+LV_IMG_DECLARE(ui_img_nowifi_png);    // assets\nowifi.png
 LV_IMG_DECLARE(ui_img_suitcase_png);    // assets\suitcase.png
 LV_IMG_DECLARE(ui_img_settings_png);    // assets\settings.png
 LV_IMG_DECLARE(ui_img_lightbulb_png);    // assets\lightbulb.png
 LV_IMG_DECLARE(ui_img_fan_png);    // assets\fan.png
 LV_IMG_DECLARE(ui_img_laptop_png);    // assets\laptop.png
+LV_IMG_DECLARE(ui_img_wifi_connected_png);    // assets\wifi_Connected.png
 
 
 
