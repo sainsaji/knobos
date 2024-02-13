@@ -159,7 +159,7 @@ void ui_event_roundButton_roundButton(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_RELEASED) {
-        _ui_screen_change(&ui_Changelog, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_Changelog_screen_init);
+        _ui_screen_change(&ui_HomeScreen, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_HomeScreen_screen_init);
     }
 }
 void ui_event_Changelog(lv_event_t * e)

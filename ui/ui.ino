@@ -5,6 +5,8 @@
 #include <Ticker.h>
 #include <WiFi.h>
 
+
+
 //WiFi Credentials
 const char* ssid = "Wi-Fi";
 const char* password = "Mywifi#123";
@@ -169,10 +171,13 @@ static void connectWiFi(void *pvParameters) {
   }
   if(isConnected)
   {
+    lv_obj_t *wifiImage = ui_WifiImage;
     lv_obj_t *connectButton = ui_ConnectToWifiBtn;
     Serial.println("\nDisabling Button");
     lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
     lv_obj_add_state(connectButton, LV_STATE_DISABLED);
+    lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
+    lv_img_set_zoom(wifiImage, 100);
     socketSend("Hello Server");
   }
   vTaskDelete(NULL);
@@ -233,19 +238,21 @@ void settingsScreenLoaded(lv_event_t * e)
   }
 }
 
+void getCurrentTime()
+{
+
+}
+
 void homeScreenLoaded(lv_event_t * e)
 {
   Serial.println("\n Home Screen Loaded");
   lv_obj_t *wifiImage = ui_WifiImage;
   if(isConnected)
   {
-    
-    Serial.println("Connected TO WiFi");
-    // lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
-    // lv_obj_add_state(connectButton, LV_STATE_DISABLED);
-    
+    Serial.println("Connected TO WiFi");    
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
     lv_img_set_zoom(wifiImage, 100);
+    getCurrentTime();
   }
   else
   {
