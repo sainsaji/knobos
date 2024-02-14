@@ -4,8 +4,11 @@
 #include <CST816S.h>
 #include <Ticker.h>
 #include <WiFi.h>
+#include <ESP32Time.h>
+#include <time.h>
 
-#if DEGUB == 1
+
+#if DEGUBVAL == 0
   #define DEBUG_PRINT(x)  Serial.print(x)
   #define DEBUG_PRINTLN(x)  Serial.println(x)
 #else
@@ -28,6 +31,12 @@ bool isConnected = false;
 //Touch Initialization
 CST816S touch(6, 7, 14, 5);
 
+//RTC Initialization
+ESP32Time rtc(19800);
+bool timeSync = false;
+const char* ntpServer = "pool.ntp.org";
+const long  gmtOffset_sec = 19800;
+const int   daylightOffset_sec = 0;
 
 /* Screen resolution*/
 static const uint16_t screenWidth PROGMEM   = 240;
@@ -167,6 +176,7 @@ static void connectWiFi(void *pvParameters) {
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
     lv_img_set_zoom(wifiImage, 100);
     socketSend("Hello Server");
+    syncCurrentTime();
   }
   vTaskDelete(NULL);
 
@@ -226,9 +236,23 @@ void settingsScreenLoaded(lv_event_t * e)
   }
 }
 
-void getCurrentTime()
-{
 
+void syncCurrentTime()
+{
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  Serial.println(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
+  while(rtc.getTime("%Y")=="1970")
+  {
+    
+  }
+  Serial.println(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
+  lv_obj_t *hourLabel = ui_Hour;
+  lv_obj_t *minsLabel = ui_Mins;
+  lv_obj_t *dateLabel = ui_DateInfo;
+  lv_label_set_text_fmt(hourLabel, "%s", rtc.getTime("%H"));
+  lv_label_set_text_fmt(minsLabel, "%s", rtc.getTime("%M"));
+  lv_label_set_text_fmt(dateLabel, "%s", rtc.getTime("%b %d"));
+  timeSync=true;
 }
 
 void homeScreenLoaded(lv_event_t * e)
@@ -240,7 +264,7 @@ void homeScreenLoaded(lv_event_t * e)
     DEBUG_PRINTLN("Connected TO WiFi");    
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
     lv_img_set_zoom(wifiImage, 100);
-    getCurrentTime();
+    if (!timeSync) syncCurrentTime();
   }
   else
   {
@@ -256,14 +280,11 @@ void setup()
     Serial.begin( 115200 ); /* prepare for possible serial debug */
     #endif
     touch.begin();
-    String LVGL_Arduino = "Hello Arduino! ";
+    String LVGL_Arduino PROGMEM = "Hello Arduino! ";
     LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
 
     DEBUG_PRINTLN( LVGL_Arduino );
-    DEBUG_PRINTLN( "I am LVGL_Arduino" );
-
     lv_init();
-
     tft.begin();          /* TFT init */
     tft.setRotation( 4 ); /* Landscape orientation, flipped */
 
@@ -285,8 +306,6 @@ void setup()
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = my_touchpad_read;
     lv_indev_drv_register( &indev_drv );
-
-
     ui_init();
     //lv_obj_add_event_cb(ui_BrightnessSlider, brightnessSliderUpdate, LV_EVENT_VALUE_CHANGED, NULL);
     //lv_obj_add_event_cb(ui_LightControl, lightControlScreenEvents, LV_EVENT_SCREEN_LOADED, NULL);
