@@ -239,13 +239,14 @@ void settingsScreenLoaded(lv_event_t * e)
 
 void syncCurrentTime()
 {
+
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  Serial.println(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
+  DEBUG_PRINTLN(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
   while(rtc.getTime("%Y")=="1970")
   {
     
   }
-  Serial.println(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
+  DEBUG_PRINTLN(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
   lv_obj_t *hourLabel = ui_Hour;
   lv_obj_t *minsLabel = ui_Mins;
   lv_obj_t *dateLabel = ui_DateInfo;
@@ -264,7 +265,7 @@ void homeScreenLoaded(lv_event_t * e)
     DEBUG_PRINTLN("Connected TO WiFi");    
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
     lv_img_set_zoom(wifiImage, 100);
-    if (!timeSync) syncCurrentTime();
+    syncCurrentTime();
   }
   else
   {
