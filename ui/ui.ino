@@ -5,15 +5,22 @@
 #include <Ticker.h>
 #include <WiFi.h>
 
+#if DEGUB == 1
+  #define DEBUG_PRINT(x)  Serial.print(x)
+  #define DEBUG_PRINTLN(x)  Serial.println(x)
+#else
+  #define DEBUG_PRINT(x)
+  #define DEBUG_PRINTLN(x)
+#endif
 
 
 //WiFi Credentials
-const char* ssid = "Wi-Fi";
-const char* password = "Mywifi#123";
+const char* ssid PROGMEM = "Wi-Fi";
+const char* password PROGMEM = "Mywifi#123";
 
 //Socket Credentials
-const char* serverAddress = "192.168.1.3"; // IP address of the server you want to send data to
-const int serverPort = 8080; // Port of the server
+const char* serverAddress PROGMEM = "192.168.1.3"; // IP address of the server you want to send data to
+const int serverPort PROGMEM = 8080; // Port of the server
 
 //Connection Variables
 bool isConnected = false;
@@ -23,8 +30,8 @@ CST816S touch(6, 7, 14, 5);
 
 
 /* Screen resolution*/
-static const uint16_t screenWidth  = 240;
-static const uint16_t screenHeight = 240;
+static const uint16_t screenWidth PROGMEM   = 240;
+static const uint16_t screenHeight PROGMEM  = 240;
 
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t buf[ screenWidth * screenHeight / 10 ];
@@ -32,16 +39,6 @@ static lv_color_t buf[ screenWidth * screenHeight / 10 ];
 //TFT Initialization
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight); /* TFT instance */
 
-
-
-#if LV_USE_LOG != 0
-/* Serial debugging */
-void my_print(const char * buf)
-{
-    Serial.printf(buf);
-    Serial.flush();
-}
-#endif
 
 /* Display flushing */
 void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p )
@@ -79,12 +76,6 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
         /*Set the coordinates*/
         data->point.x = touchX;
         data->point.y = touchY;
-                                                                  
-        // Serial.print( "Data x " );
-        // Serial.println( touchX );
-
-        // Serial.print( "Data y " );
-        // Serial.println( touchY );
     }
 }
 
@@ -92,11 +83,11 @@ static void lvglTask(void *pvParameters) {
   // Ensure LVGL is initialized
   lv_obj_t *slider = (lv_obj_t *)pvParameters;
   int value = lv_slider_get_value(slider);
-  Serial.println("Slider Value Changed!");
-  Serial.println(value);
+  DEBUG_PRINTLN("Slider Value Changed!");
+  DEBUG_PRINTLN(value);
   lv_obj_t * switch_btn = ui_LightSwitch; // Assuming ui_LightSwitch is accessible here
   int buttonState = lv_obj_get_state(switch_btn);
-  Serial.println(buttonState);
+  DEBUG_PRINTLN(buttonState);
   lv_obj_clear_state(switch_btn,lv_obj_get_state(switch_btn));
   lv_obj_add_state(switch_btn, LV_STATE_CHECKED);
 
@@ -127,7 +118,7 @@ void socketSend(String dataToSocket)
 {
   WiFiClient client;
   if (!client.connect(serverAddress, serverPort)) {
-    Serial.println("Connection to server failed");
+    DEBUG_PRINTLN("Connection to server failed");
     delay(1000);
     return;
   }
@@ -135,9 +126,6 @@ void socketSend(String dataToSocket)
   // Send data to the server
   String dataToSend = dataToSocket;
   client.print(dataToSend);
-
-  // Close the connection
-  //client.stop();
 }
 
 static void connectWiFi(void *pvParameters) {
@@ -146,25 +134,25 @@ static void connectWiFi(void *pvParameters) {
   {
     WiFi.mode(WIFI_STA); //Optional
     WiFi.begin(ssid, password);
-    Serial.println("\nConnecting");
+    DEBUG_PRINTLN("\nConnecting");
     lv_label_set_text_fmt(statusLabel, "%s", "Connecting!");
 
     unsigned long startTime = millis(); // Record the start time
 
     while (WiFi.status() != WL_CONNECTED && millis() - startTime < 10000) { // Check connection status and time elapsed
-      Serial.print(".");
+      DEBUG_PRINT(".");
       delay(100);
     }
 
     if (WiFi.status() == WL_CONNECTED) {
-      Serial.println("\nConnected to the WiFi network");
-      Serial.print("Local ESP32 IP: ");
-      Serial.println(WiFi.localIP());
+      DEBUG_PRINTLN("\nConnected to the WiFi network");
+      DEBUG_PRINT("Local ESP32 IP: ");
+      DEBUG_PRINTLN(WiFi.localIP());
       lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString());
       
       isConnected = true;
     } else {
-      Serial.println("\nConnection timed out");
+      DEBUG_PRINTLN("\nConnection timed out");
       lv_label_set_text_fmt(statusLabel, "%s", "Failed!");
       // Handle timeout here, for example, retry connection or take appropriate action
     }
@@ -173,7 +161,7 @@ static void connectWiFi(void *pvParameters) {
   {
     lv_obj_t *wifiImage = ui_WifiImage;
     lv_obj_t *connectButton = ui_ConnectToWifiBtn;
-    Serial.println("\nDisabling Button");
+    DEBUG_PRINTLN("\nDisabling Button");
     lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
     lv_obj_add_state(connectButton, LV_STATE_DISABLED);
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
@@ -190,7 +178,7 @@ static void connectWiFi(void *pvParameters) {
 
 static void lockLaptop(void *pvParameters)
 {
-  Serial.println("\n Reached LapLock");
+  DEBUG_PRINTLN("\n Reached LapLock");
   socketSend("Lock");
   while (1) {
     lv_task_handler();
@@ -201,7 +189,7 @@ static void lockLaptop(void *pvParameters)
 
 static void initSettings(void *pvParameters)
 {
-  Serial.println("\n Reached Settings Init");
+  DEBUG_PRINTLN("\n Reached Settings Init");
 }
 
 
@@ -228,11 +216,11 @@ void lockLaptopTask(lv_event_t * e)
 
 void settingsScreenLoaded(lv_event_t * e)
 {
-  Serial.println("\n Settings Screen Loaded");
+  DEBUG_PRINTLN("\n Settings Screen Loaded");
   if(isConnected)
   {
     lv_obj_t *connectButton = ui_ConnectToWifiBtn;
-    Serial.println("\nDisabling Button");
+    DEBUG_PRINTLN("\nDisabling Button");
     lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
     lv_obj_add_state(connectButton, LV_STATE_DISABLED);
   }
@@ -245,11 +233,11 @@ void getCurrentTime()
 
 void homeScreenLoaded(lv_event_t * e)
 {
-  Serial.println("\n Home Screen Loaded");
+  DEBUG_PRINTLN("\n Home Screen Loaded");
   lv_obj_t *wifiImage = ui_WifiImage;
   if(isConnected)
   {
-    Serial.println("Connected TO WiFi");    
+    DEBUG_PRINTLN("Connected TO WiFi");    
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
     lv_img_set_zoom(wifiImage, 100);
     getCurrentTime();
@@ -258,25 +246,23 @@ void homeScreenLoaded(lv_event_t * e)
   {
     lv_img_set_src(wifiImage, &ui_img_nowifi_png);
     lv_img_set_zoom(wifiImage, 100);
-    Serial.println("Not Connected to WiFi");
+    DEBUG_PRINTLN("Not Connected to WiFi");
   }
 }
 
 void setup()
 {
+    #if DEGUB == 0
     Serial.begin( 115200 ); /* prepare for possible serial debug */
+    #endif
     touch.begin();
     String LVGL_Arduino = "Hello Arduino! ";
     LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
 
-    Serial.println( LVGL_Arduino );
-    Serial.println( "I am LVGL_Arduino" );
+    DEBUG_PRINTLN( LVGL_Arduino );
+    DEBUG_PRINTLN( "I am LVGL_Arduino" );
 
     lv_init();
-
-#if LV_USE_LOG != 0
-    lv_log_register_print_cb( my_print ); /* register print function for debugging */
-#endif
 
     tft.begin();          /* TFT init */
     tft.setRotation( 4 ); /* Landscape orientation, flipped */
