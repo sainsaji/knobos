@@ -13,8 +13,8 @@ export PATH=$PATH:$GITHUB_WORKSPACE/bin
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 arduino-cli config init
 arduino-cli core update-index
-# Install Arduino AVR core
-arduino-cli core install arduino:avr
+# Install Arduino ESP32
+arduino-cli core install esp32:esp32
 # Link Arduino library
 echo $HOME
 ls -l $HOME
