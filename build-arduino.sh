@@ -18,7 +18,7 @@ arduino-cli core install esp32:esp32
 # Link Arduino library
 echo $HOME
 ls -l $HOME
-ln -s $GITHUB_WORKSPACE/libraries $HOME/Arduino/libraries/
+ln -s $GITHUB_WORKSPACE $HOME/Arduino/libraries/
 ls -l $GITHUB_WORKSPACE
 # Compile all *.ino files for the Arduino Uno
 arduino-cli compile -b esp32:esp32:nodemcu-32s ui/ui.ino
