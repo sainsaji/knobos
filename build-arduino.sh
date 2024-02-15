@@ -23,7 +23,7 @@ mv $GITHUB_WORKSPACE/libraries/* $HOME/Arduino/libraries/
 ls -l $HOME/Arduino/libraries
 # Compile all *.ino files for the Arduino esp32
 arduino-cli compile -b esp32:esp32:esp32s3 --build-property build.partitions=min_spiffs ui/ui.ino --output-dir $HOME/Arduino/Release 
-zip -r Release.zip $HOME/Arduino/Release/*
+zip -r $HOME/Arduino/Release/Release.zip $HOME/Arduino/Release/*
 ls -l $HOME/Arduino/Release
 
 
