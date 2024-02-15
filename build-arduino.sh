@@ -1,4 +1,4 @@
-#!/bin/bash
+2#!/bin/bash
 # Exit immediately if a command exits with a non-zero status.
 set -e
 # Enable the globstar shell option
@@ -20,6 +20,6 @@ echo $HOME
 ls -l $HOME
 mv $GITHUB_WORKSPACE/libraries/* $HOME/Arduino/libraries/
 ls -l $HOME/Arduino/libraries
-# Compile all *.ino files for the Arduino Uno
-arduino-cli compile -b esp32::esp32:esp32 --build-property build.partitions=min_spiffs ui/ui.ino
+# Compile all *.ino files for the Arduino esp32
+arduino-cli compile -b esp32:esp32:esp32s3 --build-property build.partitions=min_spiffs ui/ui.ino
 
