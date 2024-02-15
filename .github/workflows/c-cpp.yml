@@ -21,6 +21,7 @@ jobs:
     - name: Release with Notes
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: latest
         files: |
           $HOME/Arduino/Release/Release.zip
       env:
