@@ -22,6 +22,11 @@ jobs:
       id: tag
       run: |
         echo "::set-output name=release_tag::UserBuild_$(date +"%Y.%m.%d_%H-%M")"
+    - name: Changelog
+      uses: scottbrenner/generate-changelog-action@master
+      id: Changelog
+      env:
+        REPO: ${{ github.repository }}
     - uses: actions/upload-artifact@v4
       with:
         name: my-artifact
