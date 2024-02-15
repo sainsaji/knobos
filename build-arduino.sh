@@ -21,5 +21,5 @@ ls -l $HOME
 ln -s $GITHUB_WORKSPACE $HOME/Arduino/libraries/
 ls -l $GITHUB_WORKSPACE
 # Compile all *.ino files for the Arduino Uno
-arduino-cli compile -b arduino:avr:uno ui.ino
+arduino-cli compile -b arduino:avr:uno ui/ui.ino
 done
