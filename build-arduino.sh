@@ -22,4 +22,4 @@ mv $GITHUB_WORKSPACE/libraries/* $HOME/Arduino/libraries/
 ls -l $HOME/Arduino/libraries
 # Compile all *.ino files for the Arduino Uno
 arduino-cli compile -b esp32:esp32:nodemcu-32s ui/ui.ino
-done
+
