@@ -14,12 +14,12 @@ curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.
 arduino-cli config init
 arduino-cli core update-index
 # Install Arduino ESP32
-arduino-cli core install esp32:esp32:esp32s3 
+arduino-cli core install esp32
 # Link Arduino library
 echo $HOME
 ls -l $HOME
 mv $GITHUB_WORKSPACE/libraries/* $HOME/Arduino/libraries/
 ls -l $HOME/Arduino/libraries
 # Compile all *.ino files for the Arduino Uno
-arduino-cli compile -b esp32:esp32:nodemcu-32s ui/ui.ino
+arduino-cli compile -b esp32::esp32:esp32s3 --build-properties build.partitions=min_spiffs ui/ui.ino
 
