@@ -16,6 +16,7 @@ arduino-cli core update-index
 # Install Arduino AVR core
 arduino-cli core install arduino:avr
 # Link Arduino library
+echo $HOME
 ln -s $GITHUB_WORKSPACE $HOME/libraries/
 # Compile all *.ino files for the Arduino Uno
 for f in **/*.ino ; do
