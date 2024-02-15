@@ -7,7 +7,6 @@ shopt -s globstar
 cd $GITHUB_WORKSPACE
 # Create directories
 mkdir $HOME/Arduino
-mkdir $HOME/Arduino/libraries
 # Install Arduino IDE
 export PATH=$PATH:$GITHUB_WORKSPACE/bin
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
@@ -18,7 +17,7 @@ arduino-cli core install esp32:esp32
 # Link Arduino library
 echo $HOME
 ls -l $HOME
-ln -s $GITHUB_WORKSPACE $HOME/Arduino/libraries/
+mv $GITHUB_WORKSPACE/libraries/* $HOME/Arduino/libraries/
 ls -l $HOME/Arduino/libraries
 # Compile all *.ino files for the Arduino Uno
 arduino-cli compile -b esp32:esp32:nodemcu-32s ui/ui.ino
