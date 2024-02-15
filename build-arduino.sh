@@ -19,5 +19,5 @@ arduino-cli core install arduino:avr
 echo $HOME
 ln -s $GITHUB_WORKSPACE $HOME/Arduino/libraries/
 # Compile all *.ino files for the Arduino Uno
-arduino-cli compile -b arduino:avr:uno $GITHUB_WORKSPACE/ui.ino
+arduino-cli compile -b arduino:avr:uno ui.ino
 done
