@@ -8,6 +8,7 @@ cd $GITHUB_WORKSPACE
 # Create directories
 mkdir $HOME/Arduino
 mkdir $HOME/Arduino/libraries
+mkdir $HOME/Arduino/Release
 # Install Arduino IDE
 export PATH=$PATH:$GITHUB_WORKSPACE/bin
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
@@ -21,5 +22,5 @@ ls -l $HOME
 mv $GITHUB_WORKSPACE/libraries/* $HOME/Arduino/libraries/
 ls -l $HOME/Arduino/libraries
 # Compile all *.ino files for the Arduino esp32
-arduino-cli compile -b esp32:esp32:esp32s3 --build-property build.partitions=min_spiffs ui/ui.ino --verbose
+arduino-cli compile -b esp32:esp32:esp32s3 --build-property build.partitions=min_spiffs ui/ui.ino --output-dir $HOME/Arduino/Release --verbose
 
