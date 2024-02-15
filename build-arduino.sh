@@ -14,7 +14,7 @@ curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.
 arduino-cli config init
 arduino-cli core update-index
 # Install Arduino ESP32
-arduino-cli core install esp32
+arduino-cli core install esp32:esp32
 # Link Arduino library
 echo $HOME
 ls -l $HOME
