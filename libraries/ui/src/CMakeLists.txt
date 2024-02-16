@@ -3,7 +3,6 @@ SET(SOURCES components/ui_comp_appcomponent.c
     components/ui_comp_roundbutton.c
     components/ui_comp.c
     screens/ui_FlashScreen.c
-    screens/ui_Changelog.c
     screens/ui_HomeScreen.c
     screens/ui_AppScreenDisplay.c
     screens/ui_LightControl.c

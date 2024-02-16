@@ -35,12 +35,6 @@ extern lv_obj_t * ui_knobosLabel;
 extern lv_obj_t * ui_firmwareLabel;
 void ui_event_roundButton_roundButton(lv_event_t * e);
 extern lv_obj_t * ui_roundButton;
-// SCREEN: ui_Changelog
-void ui_Changelog_screen_init(void);
-void ui_event_Changelog(lv_event_t * e);
-extern lv_obj_t * ui_Changelog;
-extern lv_obj_t * ui_Label4;
-extern lv_obj_t * ui_Label5;
 // SCREEN: ui_HomeScreen
 void ui_HomeScreen_screen_init(void);
 void ui_event_HomeScreen(lv_event_t * e);
@@ -128,7 +122,7 @@ extern lv_obj_t * ui_AppTitleComp3;
 extern lv_obj_t * ui_AppControls2;
 void ui_event_ConnectToWifiBtn(lv_event_t * e);
 extern lv_obj_t * ui_ConnectToWifiBtn;
-extern lv_obj_t * ui_Label1;
+extern lv_obj_t * ui_WiFiConnectBtnLabel;
 extern lv_obj_t * ui_Image1;
 extern lv_obj_t * ui_AutoConnectPanel;
 extern lv_obj_t * ui_AutoConnectLabel;

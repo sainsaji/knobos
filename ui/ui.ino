@@ -143,6 +143,7 @@ void socketSend(String dataToSocket)
 
 static void connectWiFi(void *pvParameters) {
   lv_obj_t *statusLabel = (lv_obj_t *)pvParameters;
+  lv_obj_t *WiFiConnectBtnLabel = ui_WiFiConnectBtnLabel;
   if(!isConnected)
   {
     WiFi.mode(WIFI_STA); //Optional
@@ -157,26 +158,29 @@ static void connectWiFi(void *pvParameters) {
       delay(100);
     }
 
-    if (WiFi.status() == WL_CONNECTED) {
+    if (WiFi.status() == WL_CONNECTED) 
+    {
       DEBUG_PRINTLN("\nConnected to the WiFi network");
       DEBUG_PRINT("Local ESP32 IP: ");
       DEBUG_PRINTLN(WiFi.localIP());
-      lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString());
-      
+      lv_label_set_text_fmt(statusLabel, "%s", WiFi.localIP().toString()); 
+      DEBUG_PRINTLN("\nChange WiFi Action and Label");
+      lv_label_set_text_fmt(WiFiConnectBtnLabel, "%s", "Disconnect WiFi");
       isConnected = true;
-    } else {
+    } 
+    else 
+    {
       DEBUG_PRINTLN("\nConnection timed out");
       lv_label_set_text_fmt(statusLabel, "%s", "Failed!");
       // Handle timeout here, for example, retry connection or take appropriate action
     }
   }
+  
+
   if(isConnected)
   {
     lv_obj_t *wifiImage = ui_WifiImage;
-    lv_obj_t *connectButton = ui_ConnectToWifiBtn;
-    DEBUG_PRINTLN("\nDisabling Button");
-    lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
-    lv_obj_add_state(connectButton, LV_STATE_DISABLED);
+    lv_obj_t *connectButton = ui_ConnectToWifiBtn; 
     lv_img_set_src(wifiImage, &ui_img_wifi_connected_png);
     lv_img_set_zoom(wifiImage, 100);
     socketSend("Hello Server");
@@ -211,12 +215,24 @@ void connectToWifiTask(lv_event_t * e)
 {
   DEBUG_PRINTLN("\n Called Connect to WiFi");
   lv_obj_t *wifiStatusLabel = ui_ConnectionStatusLabel;
-  xTaskCreate(connectWiFi, // Task function
+  if(!isConnected)
+  {
+    xTaskCreate(connectWiFi, // Task function
               "LVGL Connect to WiFi Task", // Task name
               4096, // Stack size
               (void *)wifiStatusLabel, // Task parameters
               1, // Priority
               NULL); // Task handle (optional)
+  }
+  else
+  {
+    lv_obj_t *WiFiConnectBtnLabel = ui_WiFiConnectBtnLabel;
+    WiFi.disconnect();
+    lv_label_set_text_fmt(WiFiConnectBtnLabel, "%s", "Connect WiFi");
+    lv_label_set_text_fmt(wifiStatusLabel, "%s", "Disconnected");
+    isConnected = false;
+  }
+  
 }
 
 void lockLaptopTask(lv_event_t * e)
@@ -241,13 +257,6 @@ void settingsScreenLoaded(lv_event_t * e)
   else
   {
     lv_obj_clear_state(autoConnectSwitch,lv_obj_get_state(autoConnectSwitch));
-  }
-  if(isConnected)
-  {
-    lv_obj_t *connectButton = ui_ConnectToWifiBtn;
-    DEBUG_PRINTLN("\nDisabling Button");
-    lv_obj_clear_state(connectButton,lv_obj_get_state(connectButton));
-    lv_obj_add_state(connectButton, LV_STATE_DISABLED);
   }
 }
 

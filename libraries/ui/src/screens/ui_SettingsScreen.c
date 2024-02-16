@@ -48,11 +48,11 @@ void ui_SettingsScreen_screen_init(void)
     lv_obj_add_flag(ui_ConnectToWifiBtn, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ConnectToWifiBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Label1 = lv_label_create(ui_ConnectToWifiBtn);
-    lv_obj_set_width(ui_Label1, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Label1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_Label1, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label1, "Connect WiFi");
+    ui_WiFiConnectBtnLabel = lv_label_create(ui_ConnectToWifiBtn);
+    lv_obj_set_width(ui_WiFiConnectBtnLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_WiFiConnectBtnLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_WiFiConnectBtnLabel, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_WiFiConnectBtnLabel, "Connect WiFi");
 
     ui_Image1 = lv_img_create(ui_ConnectToWifiBtn);
     lv_img_set_src(ui_Image1, &ui_img_wifi_connected_png);

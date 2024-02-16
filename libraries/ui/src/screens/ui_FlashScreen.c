@@ -59,4 +59,6 @@ void ui_FlashScreen_screen_init(void)
 
 
     lv_obj_add_event_cb(ui_roundButton, ui_event_roundButton_roundButton, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_FlashScreen, ui_event_FlashScreen, LV_EVENT_ALL, NULL);
+
 }

@@ -20,14 +20,6 @@ void ui_event_roundButton_roundButton(lv_event_t * e);
 lv_obj_t * ui_roundButton;
 
 
-// SCREEN: ui_Changelog
-void ui_Changelog_screen_init(void);
-void ui_event_Changelog(lv_event_t * e);
-lv_obj_t * ui_Changelog;
-lv_obj_t * ui_Label4;
-lv_obj_t * ui_Label5;
-
-
 // SCREEN: ui_HomeScreen
 void ui_HomeScreen_screen_init(void);
 void ui_event_HomeScreen(lv_event_t * e);
@@ -127,7 +119,7 @@ lv_obj_t * ui_AppTitleComp3;
 lv_obj_t * ui_AppControls2;
 void ui_event_ConnectToWifiBtn(lv_event_t * e);
 lv_obj_t * ui_ConnectToWifiBtn;
-lv_obj_t * ui_Label1;
+lv_obj_t * ui_WiFiConnectBtnLabel;
 lv_obj_t * ui_Image1;
 lv_obj_t * ui_AutoConnectPanel;
 lv_obj_t * ui_AutoConnectLabel;
@@ -174,15 +166,6 @@ void ui_event_roundButton_roundButton(lv_event_t * e)
         _ui_screen_change(&ui_HomeScreen, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_HomeScreen_screen_init);
     }
 }
-void ui_event_Changelog(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_LEFT) {
-        lv_indev_wait_release(lv_indev_get_act());
-        _ui_screen_change(&ui_HomeScreen, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, &ui_HomeScreen_screen_init);
-    }
-}
 void ui_event_HomeScreen(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -204,10 +187,6 @@ void ui_event_AppScreenDisplay(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_RIGHT) {
-        lv_indev_wait_release(lv_indev_get_act());
-        _ui_screen_change(&ui_Changelog, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0, &ui_Changelog_screen_init);
-    }
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
         lv_indev_wait_release(lv_indev_get_act());
         _ui_screen_change(&ui_SettingsScreen, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0, &ui_SettingsScreen_screen_init);
@@ -368,7 +347,6 @@ void ui_init(void)
                                                false, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
     ui_FlashScreen_screen_init();
-    ui_Changelog_screen_init();
     ui_HomeScreen_screen_init();
     ui_AppScreenDisplay_screen_init();
     ui_LightControl_screen_init();
