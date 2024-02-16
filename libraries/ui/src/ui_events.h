@@ -10,6 +10,7 @@
 extern "C" {
 #endif
 
+void loadFlashScreen(lv_event_t * e);
 void lightControlScreenLoaded(lv_event_t * e);
 void brightnessLevelChange(lv_event_t * e);
 void swithOnFunction(lv_event_t * e);

@@ -28,6 +28,7 @@ extern "C" {
 #include "ui_events.h"
 // SCREEN: ui_FlashScreen
 void ui_FlashScreen_screen_init(void);
+void ui_event_FlashScreen(lv_event_t * e);
 extern lv_obj_t * ui_FlashScreen;
 extern lv_obj_t * ui_logo;
 extern lv_obj_t * ui_knobosLabel;
@@ -129,6 +130,9 @@ void ui_event_ConnectToWifiBtn(lv_event_t * e);
 extern lv_obj_t * ui_ConnectToWifiBtn;
 extern lv_obj_t * ui_Label1;
 extern lv_obj_t * ui_Image1;
+extern lv_obj_t * ui_AutoConnectPanel;
+extern lv_obj_t * ui_AutoConnectLabel;
+extern lv_obj_t * ui_autoConnectSwitch;
 extern lv_obj_t * ui_ConnectionStatusLabel;
 // SCREEN: ui_LaptopControl
 void ui_LaptopControl_screen_init(void);

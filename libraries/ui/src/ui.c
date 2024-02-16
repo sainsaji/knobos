@@ -11,6 +11,7 @@
 
 // SCREEN: ui_FlashScreen
 void ui_FlashScreen_screen_init(void);
+void ui_event_FlashScreen(lv_event_t * e);
 lv_obj_t * ui_FlashScreen;
 lv_obj_t * ui_logo;
 lv_obj_t * ui_knobosLabel;
@@ -128,6 +129,9 @@ void ui_event_ConnectToWifiBtn(lv_event_t * e);
 lv_obj_t * ui_ConnectToWifiBtn;
 lv_obj_t * ui_Label1;
 lv_obj_t * ui_Image1;
+lv_obj_t * ui_AutoConnectPanel;
+lv_obj_t * ui_AutoConnectLabel;
+lv_obj_t * ui_autoConnectSwitch;
 lv_obj_t * ui_ConnectionStatusLabel;
 
 
@@ -154,6 +158,14 @@ lv_obj_t * ui____initial_actions0;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_FlashScreen(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_SCREEN_LOAD_START) {
+        loadFlashScreen(e);
+    }
+}
 void ui_event_roundButton_roundButton(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);

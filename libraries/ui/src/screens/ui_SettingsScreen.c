@@ -63,6 +63,33 @@ void ui_SettingsScreen_screen_init(void)
     lv_obj_clear_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image1, 100);
 
+    ui_AutoConnectPanel = lv_obj_create(ui_AppControls2);
+    lv_obj_set_width(ui_AutoConnectPanel, 158);
+    lv_obj_set_height(ui_AutoConnectPanel, 37);
+    lv_obj_set_x(ui_AutoConnectPanel, -12);
+    lv_obj_set_y(ui_AutoConnectPanel, 24);
+    lv_obj_set_align(ui_AutoConnectPanel, LV_ALIGN_CENTER);
+    lv_obj_set_flex_flow(ui_AutoConnectPanel, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(ui_AutoConnectPanel, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_AutoConnectPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_AutoConnectLabel = lv_label_create(ui_AutoConnectPanel);
+    lv_obj_set_width(ui_AutoConnectLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_AutoConnectLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_AutoConnectLabel, -31);
+    lv_obj_set_y(ui_AutoConnectLabel, 11);
+    lv_obj_set_align(ui_AutoConnectLabel, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_AutoConnectLabel, "Auto Connect?");
+    lv_obj_set_style_text_font(ui_AutoConnectLabel, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_autoConnectSwitch = lv_switch_create(ui_AutoConnectPanel);
+    lv_obj_set_width(ui_autoConnectSwitch, 39);
+    lv_obj_set_height(ui_autoConnectSwitch, 20);
+    lv_obj_set_x(ui_autoConnectSwitch, -5);
+    lv_obj_set_y(ui_autoConnectSwitch, 45);
+    lv_obj_set_align(ui_autoConnectSwitch, LV_ALIGN_CENTER);
+
+
     ui_ConnectionStatusLabel = lv_label_create(ui_SettingsScreen);
     lv_obj_set_width(ui_ConnectionStatusLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_ConnectionStatusLabel, LV_SIZE_CONTENT);    /// 1

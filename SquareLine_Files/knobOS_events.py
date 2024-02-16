@@ -22,3 +22,7 @@ def ConnectToWifi(event_struct):
 def lockLaptop(event_struct):
     return
 
+
+def loadFlashScreen(event_struct):
+    return
+

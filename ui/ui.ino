@@ -6,6 +6,9 @@
 #include <WiFi.h>
 #include <ESP32Time.h>
 #include <time.h>
+#include <EEPROM.h>
+
+#define EEPROM_SIZE 1
 
 
 #if DEGUBVAL == 0
@@ -27,6 +30,7 @@ const int serverPort PROGMEM = 8080; // Port of the server
 
 //Connection Variables
 bool isConnected = false;
+bool autoConnectState = false; 
 
 //Touch Initialization
 CST816S touch(6, 7, 14, 5);
@@ -228,6 +232,16 @@ void lockLaptopTask(lv_event_t * e)
 void settingsScreenLoaded(lv_event_t * e)
 {
   DEBUG_PRINTLN("\n Settings Screen Loaded");
+  lv_obj_t *autoConnectSwitch = ui_autoConnectSwitch;
+  if(EEPROM.get(0,autoConnectState)==1)
+  {
+    lv_obj_clear_state(autoConnectSwitch,lv_obj_get_state(autoConnectSwitch));
+    lv_obj_add_state(autoConnectSwitch, LV_EVENT_PRESSED);
+  }
+  else
+  {
+    lv_obj_clear_state(autoConnectSwitch,lv_obj_get_state(autoConnectSwitch));
+  }
   if(isConnected)
   {
     lv_obj_t *connectButton = ui_ConnectToWifiBtn;
@@ -269,11 +283,26 @@ void homeScreenLoaded(lv_event_t * e)
   }
 }
 
+void wifiAutoConnect(lv_event_t * e)
+{
+  DEBUG_PRINTLN("\n WiFi AutoConnect Function");
+  EEPROM.get(0,autoConnectState)==0 ? autoConnectState = true : autoConnectState = false;
+  DEBUG_PRINTLN(autoConnectState);
+  EEPROM.put(0, autoConnectState);
+  EEPROM.commit();
+  DEBUG_PRINTLN("Auto Connect State is:");
+  DEBUG_PRINTLN(EEPROM.get(0,autoConnectState));
+}
+
 void setup()
 {
     #if DEGUB == 0
     Serial.begin( 115200 ); /* prepare for possible serial debug */
     #endif
+    EEPROM.begin(sizeof(autoConnectState));
+    DEBUG_PRINTLN("Auto Connect State is:");
+    autoConnectState = EEPROM.get(0,autoConnectState);
+    DEBUG_PRINTLN(autoConnectState);
     touch.begin();
     String LVGL_Arduino PROGMEM = "Hello Arduino! ";
     LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
@@ -308,7 +337,11 @@ void setup()
     lv_obj_add_event_cb(ui_LockLaptopBtn, lockLaptopTask, LV_EVENT_PRESSED, NULL);
     lv_obj_add_event_cb(ui_SettingsScreen, settingsScreenLoaded, LV_EVENT_SCREEN_LOADED, NULL);
     lv_obj_add_event_cb(ui_HomeScreen, homeScreenLoaded, LV_EVENT_SCREEN_LOADED, NULL);
-    lv_obj_add_event_cb(ui_FlashScreen, connectToWifiTask, LV_EVENT_SCREEN_LOADED, NULL);
+    if(autoConnectState)
+    {
+      lv_obj_add_event_cb(ui_HomeScreen, connectToWifiTask, LV_EVENT_SCREEN_LOADED, NULL);
+    }
+    lv_obj_add_event_cb(ui_autoConnectSwitch, wifiAutoConnect, LV_EVENT_CLICKED, NULL);
     
 }
 

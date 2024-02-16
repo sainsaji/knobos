@@ -34,3 +34,8 @@ void lockLaptop(lv_event_t * e)
 {
 	// Your code here
 }
+
+void loadFlashScreen(lv_event_t * e)
+{
+	// Your code here
+}
