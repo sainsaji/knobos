@@ -205,6 +205,7 @@ static void initSettings(void *pvParameters)
 
 void connectToWifiTask(lv_event_t * e)
 {
+  DEBUG_PRINTLN("\n Called Connect to WiFi");
   lv_obj_t *wifiStatusLabel = ui_ConnectionStatusLabel;
   xTaskCreate(connectWiFi, // Task function
               "LVGL Connect to WiFi Task", // Task name
@@ -239,13 +240,6 @@ void settingsScreenLoaded(lv_event_t * e)
 
 void syncCurrentTime()
 {
-
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  DEBUG_PRINTLN(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
-  while(rtc.getTime("%Y")=="1970")
-  {
-    
-  }
   DEBUG_PRINTLN(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
   lv_obj_t *hourLabel = ui_Hour;
   lv_obj_t *minsLabel = ui_Mins;
@@ -314,8 +308,8 @@ void setup()
     lv_obj_add_event_cb(ui_LockLaptopBtn, lockLaptopTask, LV_EVENT_PRESSED, NULL);
     lv_obj_add_event_cb(ui_SettingsScreen, settingsScreenLoaded, LV_EVENT_SCREEN_LOADED, NULL);
     lv_obj_add_event_cb(ui_HomeScreen, homeScreenLoaded, LV_EVENT_SCREEN_LOADED, NULL);
+    lv_obj_add_event_cb(ui_FlashScreen, connectToWifiTask, LV_EVENT_SCREEN_LOADED, NULL);
     
-
 }
 
 void loop()
