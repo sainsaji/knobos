@@ -1,6 +1,7 @@
 # Knob OS 🎛️: Automating Your Environment
 
-![Knob OS]([[https://link_to_your_image_here](https://github.com/sainsaji/knobos/assets/95070425/131e5014-d17a-45aa-a32a-5f92eed19386)](https://github.com/sainsaji/knobos/assets/95070425/131e5014-d17a-45aa-a32a-5f92eed19386))
+![Group 1](https://github.com/sainsaji/knobos/assets/95070425/781ca416-d4bd-43cd-9683-ae5d1732bada)
+
 
 ## Tags
 Arduino, esp32, lvgl, smart-knob, gc9a01
