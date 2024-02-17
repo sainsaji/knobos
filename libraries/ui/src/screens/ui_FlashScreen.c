@@ -13,36 +13,30 @@ void ui_FlashScreen_screen_init(void)
     lv_obj_set_flex_align(ui_FlashScreen, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_set_style_radius(ui_FlashScreen, 50, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_logo = lv_img_create(ui_FlashScreen);
-    lv_img_set_src(ui_logo, &ui_img_1828568161);
-    lv_obj_set_width(ui_logo, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_logo, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_logo, 0);
-    lv_obj_set_y(ui_logo, -41);
-    lv_obj_set_align(ui_logo, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_logo, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_logo, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_Panel1 = lv_obj_create(ui_FlashScreen);
+    lv_obj_set_width(ui_Panel1, 147);
+    lv_obj_set_height(ui_Panel1, 141);
+    lv_obj_set_x(ui_Panel1, -36);
+    lv_obj_set_y(ui_Panel1, -56);
+    lv_obj_set_align(ui_Panel1, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_Panel1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_Panel1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_Panel1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui_Panel1, lv_color_hex(0xF6F6F6), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui_Panel1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_color(ui_Panel1, lv_color_hex(0xF6F6F6), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_opa(ui_Panel1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_knobosLabel = lv_label_create(ui_FlashScreen);
-    lv_obj_set_width(ui_knobosLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_knobosLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_knobosLabel, 0);
-    lv_obj_set_y(ui_knobosLabel, 21);
-    lv_obj_set_align(ui_knobosLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_knobosLabel, "KnobOS");
-    lv_obj_set_style_text_color(ui_knobosLabel, lv_color_hex(0x2F6CDA), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_knobosLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_knobosLabel, &lv_font_montserrat_28, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_firmwareLabel = lv_label_create(ui_FlashScreen);
-    lv_obj_set_width(ui_firmwareLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_firmwareLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_firmwareLabel, 0);
-    lv_obj_set_y(ui_firmwareLabel, 49);
-    lv_obj_set_align(ui_firmwareLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_firmwareLabel, "Firmware Version: 0.0.2");
-    lv_obj_set_style_text_color(ui_firmwareLabel, lv_color_hex(0x2644BF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_firmwareLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_Image3 = lv_img_create(ui_Panel1);
+    lv_img_set_src(ui_Image3, &ui_img_group_1_png);
+    lv_obj_set_width(ui_Image3, LV_SIZE_CONTENT);   /// 241
+    lv_obj_set_height(ui_Image3, LV_SIZE_CONTENT);    /// 332
+    lv_obj_set_align(ui_Image3, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_Image3, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_Image3, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_img_set_zoom(ui_Image3, 100);
+    lv_obj_set_style_bg_color(ui_Image3, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_Image3, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_roundButton = ui_roundButton_create(ui_FlashScreen);
     lv_obj_set_x(ui_roundButton, 0);

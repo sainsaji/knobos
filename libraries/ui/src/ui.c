@@ -13,9 +13,8 @@
 void ui_FlashScreen_screen_init(void);
 void ui_event_FlashScreen(lv_event_t * e);
 lv_obj_t * ui_FlashScreen;
-lv_obj_t * ui_logo;
-lv_obj_t * ui_knobosLabel;
-lv_obj_t * ui_firmwareLabel;
+lv_obj_t * ui_Panel1;
+lv_obj_t * ui_Image3;
 void ui_event_roundButton_roundButton(lv_event_t * e);
 lv_obj_t * ui_roundButton;
 
@@ -138,6 +137,7 @@ void ui_event_LockLaptopBtn(lv_event_t * e);
 lv_obj_t * ui_LockLaptopBtn;
 lv_obj_t * ui_LockLabel;
 lv_obj_t * ui____initial_actions0;
+const lv_img_dsc_t * ui_imgset_group_[1] = {&ui_img_group_1_png};
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16

@@ -15,7 +15,7 @@ SET(SOURCES components/ui_comp_appcomponent.c
     components/ui_comp_hook.c
     ui_helpers.c
     ui_events.c
-    images/ui_img_1828568161.c
+    images/ui_img_group_1_png.c
     images/ui_img_nowifi_png.c
     images/ui_img_suitcase_png.c
     images/ui_img_settings_png.c
